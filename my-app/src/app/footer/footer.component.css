@@ -1,0 +1,110 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #FAF5F0;
+    color: #FAF5F0;
+    font-size: 15px;
+}
+
+.signup-section {
+    background: #8B645A;
+    text-align: center;
+    position: relative;
+    padding: 20px 0;
+    margin: 0 0 5px 0; 
+}
+
+
+.signup-section h2 {
+    font-size: 24px;
+    font-family: 'Lora', serif;
+    margin-bottom: 10px;
+}
+
+.signup-section p {
+    font-size: 15px;
+    max-width: 710px;
+    margin: 0 auto 15px;
+}
+
+.signup-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.signup-form input {
+    width: 446px;
+    height: 55px;
+    border-radius: 6px;
+    border: 1px solid rgba(250, 245, 240, 0.5); /* Viền mờ */
+    background-color: transparent; /* Nền trong suốt */
+    padding: 10px;
+}
+
+.signup-form input::placeholder {
+    color: #FAF5F0; /* Thay đổi màu chữ */
+    opacity: 1;   /* Đảm bảo không bị mờ */
+}
+
+.signup-form button {
+    width: 101px;
+    height: 55px;
+    background: white;
+    color: #8B645A;
+    border: none;
+    border-radius: 7px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.footer-section {
+    height: 250px;
+    margin: 0 auto;  /* Căn giữa */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #8B645A;
+}
+.footer-container {
+    margin:0 50px;
+}
+.footer-brand {
+    font-size: 50px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+}
+
+.footer-contact {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    gap: 150px; /* Điều chỉnh khoảng cách giữa các mục */
+    margin:0 50px;
+}
+
+.footer-links div {
+    text-align: left;
+}
+
+.footer-links h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.footer-links ul {
+    margin-top: 30px;
+    list-style: none;
+    padding: 0;
+    font-size: 15px;
+}
+
+.footer-links li {
+    margin: 10px 0;
+}
+

@@ -1,0 +1,41 @@
+<p>{{ errMessage }}</p>
+
+<table>
+  <tr>
+    <td><label for="name">Name:</label></td>
+    <td>
+      <input type="text" class="form-control" id="name" placeholder="Nhập Name"
+        [(ngModel)]="user.Name" />
+    </td>
+  </tr>
+
+  <tr>
+    <td><label for="email">Email:</label></td>
+    <td>
+      <input type="text" class="form-control" id="email" placeholder="Nhập Email"
+        [(ngModel)]="user.Email" />
+    </td>
+  </tr>
+
+  <tr>
+    <td><label for="password">Password:</label></td>
+    <td>
+      <input type="password" class="form-control" id="password" placeholder="Nhập Password"
+        [(ngModel)]="user.Password" />
+    </td>
+  </tr>
+
+  <tr>
+    <td><label for="user_image">User Image:</label></td>
+    <td>
+      <input type="file" class="file-input" id="user_image"
+        (change)="onFileSelected($event, user)" />
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2">
+      <button (click)="postUser()">Submit</button>
+    </td>
+  </tr>
+</table>

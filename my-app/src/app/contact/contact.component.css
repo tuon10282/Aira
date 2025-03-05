@@ -1,0 +1,113 @@
+body {
+    background-color: #FAF5F0;
+    font-family: Montserrat, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: row; /* Xếp form và map theo hàng ngang */
+    width: 90%;
+    max-width: 1440px;
+    background: rgba(250, 245, 240, 0.9);
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Form nằm bên trái */
+.form-container {
+    width: 35%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 0px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Bản đồ nằm bên phải */
+#map {
+    width: 65%;
+    height: 600px;
+    border-radius: 0px;
+}
+
+/* Thông tin liên hệ */
+h2 {
+    font-family: 'Lora', serif;
+    text-align: center;
+    color: #8B645A;
+}
+
+.contact-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.social-icons img {
+    width: 40px; /* Đảm bảo kích thước đồng nhất */
+    height: 40px; /* Đảm bảo ảnh không bị méo */
+    margin: 5px;
+    border-radius: 50%; /* Làm ảnh tròn */
+    object-fit: cover; /* Cắt ảnh vừa với hình tròn */
+    border: 2px solid white; /* Viền trắng nhẹ */
+    cursor: pointer; /* Hiển thị kiểu button */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng hover */
+}
+
+.social-icons img:hover {
+    transform: scale(1.1); /* Phóng to nhẹ khi hover */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+}
+
+label {
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #3D3D3D;
+    border-radius: 5px;
+}
+
+button {
+    background: #8B645A;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button {
+    background: #8B645A;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    background: #6E4B46; /* Màu đậm hơn */
+    transform: scale(1.05); /* Phóng to nhẹ */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+}
+

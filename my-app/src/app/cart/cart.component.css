@@ -1,0 +1,89 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #FAF5F0;
+    color: #3D3D3D;
+    padding: 20px;
+}
+.cart {
+    max-width: 900px;
+    margin: 0 auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+th {
+    font-weight: bold;
+}
+.quantity-btn {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: none;
+    background-color: #8B645A;
+    color: #fff;
+    border-radius: 5px;
+}
+.remove-btn {
+    color: #8B645A;
+    background-color:rgba(255, 104, 117, 0.05) ;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.voucher-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+.voucher-container .left {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.voucher-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+}
+.voucher-container button {
+    background-color: #8B645A;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.cart-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.summary {
+    text-align: right;
+}
+.summary p {
+    margin: 5px 0;
+}
+.checkout-btn {
+    display: block;
+    width: 150px;
+    background-color: #8B645A;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 15px;
+}

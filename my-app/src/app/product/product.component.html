@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Filter UI</title>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="filter-group">
+                <h3>PRICE <span class="toggle-icon"><img src="assets/images/arrow.png"/></span></h3>
+                <ul>
+                    <li><input type="checkbox" value="under-100"> Under 100.000 VND</li>
+                    <li><input type="checkbox" value="100-200"> 100.000 VND - 200.000 VND</li>
+                    <li><input type="checkbox" value="200-300"> 200.000 VND - 300.000 VND</li>
+                    <li><input type="checkbox" value="over-300"> Over 300.000 VND</li>
+                </ul>
+            </div>
+            <hr/>
+            <div class="filter-group">
+                <h3>FLAVOR <span class="toggle-icon"><img src="assets/images/arrow.png"/></span></h3>
+                <ul>
+                    <li><input type="checkbox" value="luxurious"> Luxurious Scented Candles</li>
+                    <li><input type="checkbox" value="relax"> Relax Scented Candles</li>
+                    <li><input type="checkbox" value="cool"> Cool Scented Candles</li>
+                    <li><input type="checkbox" value="warm"> Warm Scented Candles</li>
+                </ul>
+            </div>
+            <hr/>
+            <div class="filter-group">
+                <h3>COLOR <span class="toggle-icon"><img src="assets/images/arrow.png"/></span></h3>
+                <ul>
+                    <li><input type="radio" name="color"> <span class="color-circle black"></span> Black</li>
+                    <li><input type="radio" name="color"> <span class="color-circle brown"></span> Brown</li>
+                </ul>
+            </div>
+            <hr/>
+            <div class="filter-group">
+                <h3>PRODUCT TYPE <span class="toggle-icon"><img src="assets/images/arrow.png"/></span></h3>
+                <ul>
+                    <li><input type="checkbox" value="gift-set"> Gift Set</li>
+                    <li><input type="checkbox" value="accessories"> Candle Care Accessories</li>
+                    <li><input type="checkbox" value="tray"> Candle Tray</li>
+                    <li><input type="checkbox" value="other"> Other</li>
+                </ul>
+            </div>
+            <hr/>
+        </aside>
+        <main class="product-list"></main>
+    </div>
+</body>
+</html>

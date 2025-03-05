@@ -1,0 +1,142 @@
+<!-- Checkout Page UI -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - AIRA</title>
+</head>
+<body>
+    <!-- Container: Shipping Info & Order Summary -->
+    <div class="container">
+        <div class="section-box">
+            <h2>Shipping Information</h2>
+            
+            <label>Full name</label>
+<input type="text" placeholder="Enter your full name">
+
+<label>Email address</label>
+<input type="email" placeholder="Enter your email">
+
+<label>Phone Number</label>
+<input type="number" placeholder="Enter your phone number">
+
+<label>Delivery address</label>
+<input type="text" placeholder="Enter your delivery address">
+
+            <div class="form-row">
+                <div>
+                    <label>Province</label>
+                    <select>
+                        <option selected>Lam Dong</option>
+                    </select>
+                </div>
+                <div>
+                    <label>City/District</label>
+                    <select>
+                        <option selected>Da Lat city</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Ward/Commune</label>
+                    <select>
+                        <option>Commune 1</option>
+                    </select>
+                </div>
+            </div>
+            
+            <h3>Select Shipping</h3>
+            <div class="shipping-option">
+                <label>Standard Delivery (Delivered within 3-5 days)</label>
+                <input type="radio" name="shipping">
+            </div>
+            <div class="shipping-option">
+                <label>Express Delivery (Same-day delivery)</label>
+                <input type="radio" name="shipping">
+            </div>
+            <div class="shipping-option">
+                <label>Ninja Van</label>
+                <input type="radio" name="shipping">
+            </div>            
+
+        </div>
+
+        <div class="section-box">
+            <h2>Order Summary</h2>
+            <img src="candle.png" alt="Rosy Candle" class="product-image">
+            <div class="order-item">
+                <div class="item-info">
+                    <h3>ROSY CANDLE</h3>
+                    <p><strong>230,000 VND</strong></p>
+                </div>
+                <div class="quantity-container">
+                    <button class="quantity-btn" id="decrease">-</button>
+                    <span id="quantity">2</span>
+                    <button class="quantity-btn" id="increase">+</button>
+                </div>
+            </div>                     
+            <h4>Gift Card / Discount code</h4>
+            <div class="discount-container">
+                <input type="text" placeholder="Enter code">
+                <button>Apply</button>
+            </div>            
+            <div class="subtotal-container">
+                <p><strong>Sub total</strong></p>
+                <p id="subtotal">460,000 VND</p>
+            </div>            
+            <div class="tax-container">
+                <p><strong>Tax</strong></p>
+                <p id="tax">46,000 VND</p>
+            </div>            
+            <div class="shipping-fee-container">
+                <p><strong>Shipping Fee:</strong></p>
+                <p id="shipping-fee">0 VND</p>
+            </div>            
+            <div class="total-container">
+                <p><strong>Total:</strong></p>
+                <p id="total">0 VND</p>
+            </div>            
+        </div>
+    </div>
+
+    <!-- Container: Payment -->
+    <div class="container">
+        <!-- Payment Methods -->
+        <div class="section-box">
+            <h2>Payment</h2>
+            <div class="payment-option">
+                <label>Bank Transfer</label>
+                <input type="radio" name="payment">
+            </div>
+            <div class="payment-option">
+                <label>Cash on delivery (COD)</label>
+                <input type="radio" name="payment">
+            </div>
+            <div class="payment-option">
+                <label>Payment via Momo</label>
+                <input type="radio" name="payment">
+            </div>            
+        </div>
+
+        <!-- Bank Transfer Details -->
+        <div class="section-box">
+            <h3>Please transfer the payment to this account</h3>
+            <div class="bank-info">
+                <span>Bank:</span> <strong>Vietcombank</strong>
+            </div>
+            <div class="bank-info">
+                <span>Account number:</span> <strong>123456789</strong>
+            </div>
+            <div class="bank-info">
+                <span>Account Holder:</span> <strong>AIRA Joint Stock Company</strong>
+            </div>
+            <div class="bank-info">
+                <span>Transfer Details:</span> <strong>[Name]_[Order Phone Number]</strong>
+            </div>
+        </div>
+        <p class="payment-warning">
+            If you do not complete the payment, your order will be automatically canceled!
+        </p>
+    </div> <!-- Đóng container của Payment -->
+</body>
+</html>

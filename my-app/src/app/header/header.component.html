@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIRA Navigation</title>
+  <!-- Import Google Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="top-row">
+      <div class="search-container">
+        <input type="text" placeholder="Search..." class="search-input">
+        <span class="material-icons search-icon">search</span>
+      </div>
+      <div class="logo">AIRA</div>
+      <div class="icons">
+        <div class="dropdown">
+          <button class="dropbtn">
+              <span class="material-icons">person</span>
+          </button>
+          <div class="dropdown-content">
+            <a [routerLink]="'/dangnhap'">Đăng nhập</a>
+            <a [routerLink]="'/dangky'">Đăng ký</a>
+        </div>        
+      </div>        
+      <a [routerLink]="'/giohang'"><span class="material-icons">shopping_cart</span></a>
+      </div>
+    </div>
+    <nav class="nav-menu">
+      <a [routerLink]="'/sanpham'">PRODUCTS</a>
+      <a href="#">CUSTOMIZE</a>
+      <a [routerLink]="'/gioithieu'">ABOUT US</a>
+      <a [routerLink]="'/lienhe'">CONTACT</a>
+    </nav>
+  </header>
+</body>
+</html>

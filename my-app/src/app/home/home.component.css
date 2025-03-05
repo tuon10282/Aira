@@ -1,0 +1,252 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #F5EFE7;
+    color: #444;
+    font-size: 16px;
+}
+#main-banner {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
+.content-wrapper {
+    width: 100%;
+    max-width: 1300px;
+    margin: 30px auto;
+    display: flex;
+    justify-content: space-around;
+}
+.category-item {
+    text-align: center;
+}
+.category-item img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+.category-text {
+    color: #875A5A;
+    font-size: 18px;
+    font-weight: bold;
+}
+.featured-products, .new-arrivals {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+}
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+h2 {
+    font-size: 30px;
+    color: #875A5A;
+    text-transform: uppercase;
+}
+.explore-all {
+    font-size: 14px;
+    text-decoration: none;
+    color: #444;
+    border-bottom: 1px solid rgba(68, 68, 68, 0.2);
+}
+.product-container {
+    display: flex;
+    justify-content: space-around;
+}
+.product-card {
+    text-align: center;
+}
+.product-card img {
+    width: 280px;
+    height: 280px;
+    border-radius: 12px;
+    transition: transform 0.3s ease-in-out;
+}
+.product-card img:hover {
+    transform: scale(1.07);
+}
+.product-card p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+.collection-section {
+    width: 1208px;
+    height: 885px;
+    padding: 140px 0;
+    background: #f1f1f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+.collection-title {
+    color: #8b645a;
+    font-size: 72px;
+    font-family: 'Marcellus', serif;
+    text-transform: uppercase;
+    letter-spacing: 7.68px;
+}
+.collection-container {
+    width: 1170px;
+    height: 605px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+.collection-image img {
+    width: 706px;
+    height: 530px;
+}
+.collection-content {
+    width: 343px;
+    color: #3d3d3d;
+}
+.collection-content h3 {
+    font-size: 26px;
+    font-family: 'Marcellus', serif;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 15px;
+}
+.collection-content p {
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+.shop-collection {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #111111;
+    color: white;
+    font-size: 14px;
+    font-family: 'Jost', sans-serif;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+#discount-banner {
+    display: block;
+    margin: 0 auto;
+}
+
+.brand-message {
+    text-align: center;
+    padding: 80px 0;
+    background: #f1f1f0;
+}
+.testimonial {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: 24px;
+}
+.testimonial-dots {
+    margin-top: 20px;
+}
+.dot {
+    width: 10px;
+    height: 10px;
+    background: #d9d9d9;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px;
+}
+.dot.active {
+    background: #8c907e;
+}
+.blog {
+    max-width: 1435px;
+    margin: 0 auto;
+    padding: 40px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+}
+
+.blog-header h2 {
+    font-size: 34px;
+    font-weight: bold;
+    font-family: 'Lora', serif;
+    color: #8b645a;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.read-all {
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #3d3d3d;
+    border-bottom: 1px solid rgba(61, 61, 61, 0.2);
+}
+
+.blog-content {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 20px 50px;
+}
+
+.blog-item {
+    max-width: 460px;
+}
+
+.blog-item img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.blog-text {
+    margin-top: 12px;
+}
+
+.blog-text .date {
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    color: #3d3d3d;
+}
+
+.blog-text h3 {
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    text-decoration: underline;
+    color: #3d3d3d;
+    margin: 5px 0;
+}
+
+.blog-text .excerpt {
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    color: #3d3d3d;
+    line-height: 1.5;
+}
+
+.blog-nav {
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #content_container {
+            width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .custom-file-upload {
+            display: block;
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .custom-file-upload:hover {
+            background: #0056b3;
+        }
+
+        button {
+            width: 48%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+        }
+
+        button:first-child {
+            background: #28a745;
+        }
+
+        button:first-child:hover {
+            background: #218838;
+        }
+
+        button:last-child {
+            background: #dc3545;
+        }
+
+        button:last-child:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+<div id="content_container">
+    <h2>Đăng Ký</h2>
+    
+    <input type="text" id="full_name" placeholder="Họ và Tên">
+    
+    <select id="gender">
+        <option value="" disabled selected>Giới tính</option>
+        <option value="Nam">Nam</option>
+        <option value="Nữ">Nữ</option>
+        <option value="Khác">Khác</option>
+    </select>
+    
+    <input type="text" id="birthday" placeholder="Sinh Nhật">
+    
+    <select id="province"></select>
+    
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Mật khẩu">
+    
+    <label for="profile_picture" class="custom-file-upload">Chọn ảnh đại diện</label>
+    <input type="file" id="profile_picture" style="display: none;">
+    
+    <canvas id="image_canvas" style="width: 100%; height: 200px;"></canvas>
+    
+    <div>
+        <button onclick="login()">Đăng nhập</button>
+        <button onclick="register()">Đăng ký</button>
+    </div>
+</div>
+
+<script>
+    var provinces = [
+        "An Giang", "Bà Rịa - Vũng Tàu", "Bắc Giang", "Bắc Kạn", "Bạc Liêu", "Bắc Ninh", "Bến Tre",
+        "Bình Định", "Bình Dương", "Bình Phước", "Bình Thuận", "Cà Mau", "Cần Thơ", "Cao Bằng",
+        "Đà Nẵng", "Đắk Lắk", "Đắk Nông", "Điện Biên", "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Giang",
+        "Hà Nam", "Hà Nội", "Hà Tĩnh", "Hải Dương", "Hải Phòng", "Hậu Giang", "Hòa Bình", "Hồ Chí Minh",
+        "Khánh Hòa", "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai", "Long An",
+        "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", "Phú Yên", "Quảng Bình", "Quảng Nam",
+        "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Tây Ninh", "Thái Bình", "Thái Nguyên",
+        "Thanh Hóa", "Thừa Thiên Huế", "Tiền Giang", "Trà Vinh", "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái"
+    ];
+
+    var select = document.getElementById('province');
+    var defaultOption = document.createElement('option');
+    defaultOption.text = "Đến Từ";
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    select.add(defaultOption);
+
+    provinces.forEach(function(province) {
+        var option = document.createElement('option');
+        option.text = province;
+        option.value = province;
+        select.add(option);
+    });
+
+    function login() {
+        alert("Chuyển hướng đến trang đăng nhập...");
+    }
+
+    function register() {
+        alert("Đăng ký thành công!");
+    }
+</script>
+
+</body>
+</html>
