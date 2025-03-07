@@ -1,121 +1,103 @@
-<!-- Checkout Page UI -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - AIRA</title>
+    <link rel="stylesheet" href="checkout.component.css">
 </head>
 <body>
     <!-- Container: Shipping Info & Order Summary -->
     <div class="container">
+        <!-- Shipping Information -->
         <div class="section-box">
             <h2>Shipping Information</h2>
-            
-            <label>Full name</label>
-<input type="text" placeholder="Enter your full name">
-
-<label>Email address</label>
-<input type="email" placeholder="Enter your email">
-
-<label>Phone Number</label>
-<input type="number" placeholder="Enter your phone number">
-
-<label>Delivery address</label>
-<input type="text" placeholder="Enter your delivery address">
-
-            <div class="form-row">
-                <div>
-                    <label>Province</label>
-                    <select>
-                        <option selected>Lam Dong</option>
-                    </select>
-                </div>
-                <div>
-                    <label>City/District</label>
-                    <select>
-                        <option selected>Da Lat city</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Ward/Commune</label>
-                    <select>
-                        <option>Commune 1</option>
-                    </select>
-                </div>
-            </div>
-            
+            <form>
+                <label>Full name</label>
+                <input type="text" placeholder="Enter your full name" required>
+                <label>Email address</label>
+                <input type="email" placeholder="Enter your email" required>
+                <label>Phone Number</label>
+                <input type="number" placeholder="Enter your phone number" required>
+                <label>Delivery address</label>
+                <input type="text" placeholder="Enter your delivery address" required>
+            </form>
             <h3>Select Shipping</h3>
             <div class="shipping-option">
-                <label>Standard Delivery (Delivered within 3-5 days)</label>
-                <input type="radio" name="shipping">
+                <label>
+                    <input type="radio" name="shipping" (change)="updateShippingFee('Standard')"> Standard Delivery (3-5 days)
+                </label>
             </div>
             <div class="shipping-option">
-                <label>Express Delivery (Same-day delivery)</label>
-                <input type="radio" name="shipping">
+                <label>
+                    <input type="radio" name="shipping" (change)="updateShippingFee('Express')"> Express Delivery (Same-day)
+                </label>
             </div>
             <div class="shipping-option">
-                <label>Ninja Van</label>
-                <input type="radio" name="shipping">
-            </div>            
-
+                <label>
+                    <input type="radio" name="shipping" (change)="updateShippingFee('Ninja')"> Ninja Van
+                </label>
+            </div>
         </div>
 
-        <div class="section-box">
+        <!-- Order Summary -->
+        <div class="section-box" id="order-summary">
             <h2>Order Summary</h2>
-            <img src="candle.png" alt="Rosy Candle" class="product-image">
+            <img src="assets/candle.png" alt="Rosy Candle" class="product-image">
             <div class="order-item">
                 <div class="item-info">
                     <h3>ROSY CANDLE</h3>
-                    <p><strong>230,000 VND</strong></p>
+                    <p><strong>{{ formatCurrency(pricePerItem) }}</strong></p>
                 </div>
                 <div class="quantity-container">
-                    <button class="quantity-btn" id="decrease">-</button>
-                    <span id="quantity">2</span>
-                    <button class="quantity-btn" id="increase">+</button>
+                    <button (click)="decreaseQuantity()">-</button>
+                    <span>{{ quantity }}</span>
+                    <button (click)="increaseQuantity()">+</button>
                 </div>
-            </div>                     
+            </div>
             <h4>Gift Card / Discount code</h4>
             <div class="discount-container">
                 <input type="text" placeholder="Enter code">
                 <button>Apply</button>
-            </div>            
+            </div>
             <div class="subtotal-container">
                 <p><strong>Sub total</strong></p>
-                <p id="subtotal">460,000 VND</p>
-            </div>            
+                <p>{{ formatCurrency(subtotal) }}</p>
+            </div>
             <div class="tax-container">
                 <p><strong>Tax</strong></p>
-                <p id="tax">46,000 VND</p>
-            </div>            
+                <p>{{ formatCurrency(tax) }}</p>
+            </div>
             <div class="shipping-fee-container">
                 <p><strong>Shipping Fee:</strong></p>
-                <p id="shipping-fee">0 VND</p>
-            </div>            
+                <p>{{ formatCurrency(shippingFee) }}</p>
+            </div>
             <div class="total-container">
                 <p><strong>Total:</strong></p>
-                <p id="total">0 VND</p>
-            </div>            
+                <p>{{ formatCurrency(total) }}</p>
+            </div>
         </div>
     </div>
 
-    <!-- Container: Payment -->
+    <!-- Payment Section -->
     <div class="container">
-        <!-- Payment Methods -->
         <div class="section-box">
             <h2>Payment</h2>
             <div class="payment-option">
-                <label>Bank Transfer</label>
-                <input type="radio" name="payment">
+                <label>
+                    <input type="radio" name="payment"> Bank Transfer
+                </label>
             </div>
             <div class="payment-option">
-                <label>Cash on delivery (COD)</label>
-                <input type="radio" name="payment">
+                <label>
+                    <input type="radio" name="payment"> Cash on delivery (COD)
+                </label>
             </div>
             <div class="payment-option">
-                <label>Payment via Momo</label>
-                <input type="radio" name="payment">
-            </div>            
+                <label>
+                    <input type="radio" name="payment"> Payment via Momo
+                </label>
+            </div>
         </div>
 
         <!-- Bank Transfer Details -->
@@ -137,6 +119,6 @@
         <p class="payment-warning">
             If you do not complete the payment, your order will be automatically canceled!
         </p>
-    </div> <!-- Đóng container của Payment -->
+    </div>
 </body>
 </html>

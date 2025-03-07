@@ -1,103 +1,49 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <title>Tiêu đề trang</title>
-</head>
-<body>
-    <div class="cart">
-        <h1 style="text-align: center;">CART</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>PRODUCT</th>
-                    <th>UNIT PRICE</th>
-                    <th>QUANTITY</th>
-                    <th>TOTAL</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="cart-items"></tbody>
-        </table>
+<div class="cart">
+    <h1 style="text-align: center;">CART</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>PRODUCT</th>
+                <th>UNIT PRICE</th>
+                <th>QUANTITY</th>
+                <th>TOTAL</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of cart; let i = index">
+                <td>{{ item.name }}</td>
+                <td>${{ item.price.toFixed(2) }}</td>
+                <td>
+                    <button class="quantity-btn" (click)="changeQuantity(i, -1)">-</button>
+                    {{ item.quantity }}
+                    <button class="quantity-btn" (click)="changeQuantity(i, 1)">+</button>
+                </td>
+                <td>${{ (item.price * item.quantity).toFixed(2) }}</td>
+                <td><button class="remove-btn" (click)="removeItem(i)">×</button></td>
+            </tr>
+        </tbody>
+    </table>
 
-        <div class="voucher-container">
-            <div class="left">
-                <input type="text" placeholder="Voucher code">
-                <button onclick="redeemVoucher()">Redeem</button>
-            </div>
-            <button onclick="updateCart()">Update Cart</button>
+    <div class="voucher-container">
+        <div class="left">
+            <input type="text" placeholder="Voucher code">
+            <button (click)="redeemVoucher()">Redeem</button>
         </div>
-
-        <div class="cart-summary">
-            <div></div>
-            <div class="summary">
-                <p>Subtotal: $<span id="subtotal">0</span></p>
-                <p>Shipping fee: $13</p>
-                <p>Coupon: No</p>
-                <hr>
-                <p style="font-weight: bold;">TOTAL: $<span id="total">0</span></p>
-                <a [routerLink]="'/thanhtoan'">
-                    <button class="checkout-btn">Check out</button>
-                </a>
-                </div>
-        </div>
+        <button (click)="updateCart()">Update Cart</button>
     </div>
 
-    <script>
-        const cart = [
-            { name: 'LAVENDER CANDLE', price: 9.2, quantity: 2, image: 'candle1.jpg' },
-            { name: 'LAVENDER CANDLE', price: 9.2, quantity: 2, image: 'candle2.jpg' },
-            { name: 'LAVENDER CANDLE', price: 9.2, quantity: 2, image: 'candle3.jpg' }
-        ];
-
-        function updateCart() {
-            const cartItems = document.getElementById('cart-items');
-            cartItems.innerHTML = '';
-
-            cart.forEach((item, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.name}</td>
-                    <td>$${item.price.toFixed(2)}</td>
-                    <td>
-                        <button class="quantity-btn" onclick="changeQuantity(${index}, -1)">-</button>
-                        ${item.quantity}
-                        <button class="quantity-btn" onclick="changeQuantity(${index}, 1)">+</button>
-                    </td>
-                    <td>$${(item.price * item.quantity).toFixed(2)}</td>
-                    <td><button class="remove-btn" onclick="removeItem(${index})">×</button></td>
-                `;
-                cartItems.appendChild(row);
-            });
-
-            updateSummary();
-        }
-
-        function changeQuantity(index, change) {
-            cart[index].quantity += change;
-            if (cart[index].quantity <= 0) {
-                cart.splice(index, 1);
-            }
-            updateCart();
-        }
-
-        function removeItem(index) {
-            cart.splice(index, 1);
-            updateCart();
-        }
-
-        function updateSummary() {
-            const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-            document.getElementById('subtotal').textContent = subtotal.toFixed(2);
-            document.getElementById('total').textContent = (subtotal + 13).toFixed(2);
-        }
-
-        function redeemVoucher() {
-            alert('Voucher redeemed!');
-        }
-
-        updateCart();
-    </script>
-</body>
-</html>
-
+    <div class="cart-summary">
+        <div></div>
+        <div class="summary">
+            <p>Subtotal: ${{ subtotal.toFixed(2) }}</p>
+            <p>Shipping fee: ${{ shippingFee }}</p>
+            <p>Coupon: No</p>
+            <p style="font-weight: bold;">TOTAL: ${{ total.toFixed(2) }}</p>
+            <hr>
+            <a routerLink="/thanhtoan">
+                <button class="checkout-btn">Check out</button>
+            </a>
+        </div>
+    </div>
+</div>

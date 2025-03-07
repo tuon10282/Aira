@@ -30,7 +30,6 @@ import { ErrorComponent } from './error/error.component';
     ContactComponent,
     ProductDetailComponent,
     CartComponent,
-    CheckoutComponent,
     RegisterComponent,
     ErrorComponent
   ],
@@ -39,7 +38,8 @@ import { ErrorComponent } from './error/error.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ProductComponent
+    ProductComponent,
+    CheckoutComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
