@@ -25,6 +25,9 @@ client = new MongoClient("mongodb://127.0.0.1:27017");
 client.connect();
 database = client.db("Aira"); 
 usersCollection = database.collection("Users");
+productsCollection = database.collection("Products");
+
+
 
 app.get("/users",cors(),async (req,res)=>{ 
     const result = await usersCollection.find({}).toArray();
@@ -38,4 +41,14 @@ app.post("/users",cors(),async(req,res)=>{
     //send message to client(send all database to client)
     res.send(req.body)
     })
-    
+
+app.get("/products",cors(),async (req,res)=>{
+    const result = await productsCollection.find({}).toArray();
+    res.send(result)
+    })
+app.get("/products/:id",cors(),async (req,res)=>{
+    var o_id = new ObjectId(req.params["id"]);
+    const result = await productsCollection.find({_id:o_id}).toArray(); 
+    res.send(result[0])
+    }
+        )

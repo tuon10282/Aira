@@ -9,7 +9,7 @@
         
         <div class="product-images">
             <div class="main-image">
-                <img src="assets/images/product to .png" alt="Product picture">
+                <img src={{product.image}} alt="Product picture">
             </div>
             <div class="thumbnail-images">
                 <img src="assets/images/product nhỏ.png" alt="Product picture">
@@ -19,12 +19,12 @@
         </div>
 
         <div class="product-info">
-            <h1 class="product-title">Focus Scented Candle – Iris Blossom</h1>
-            <div class="status">Status: <span>Available</span></div>
-            <div class="price">77.000 VND <span class="original-price">120.000 VND</span></div>
-            <div class="discount">Discount 35.83%</div>
-            <div class="bought-info">29 bought in last month</div>
-            <h4>Rating</h4><div class="rating">★ ★ ★ ★ ★</div>
+            <h1 class="product-title">{{product.name}}</h1>
+            <div class="status">Status: <span>{{product.availability}}</span></div>
+            <div class="price">{{product.price}}<span class="original-price">120.000 VND</span></div>
+            <div class="discount">{{product.discount}}</div>
+            <div class="bought-info">{{product.bought_info}} in last month</div>
+            <h4>Rating</h4><div class="rating">{{product.rating}}</div>
             
             <div class="quantity">
                 Quantity: 
@@ -38,7 +38,7 @@
 
             <div class="product-description">
                 <h3>Product description:</h3>
-                <p>Focus Scented Candle – Iris Blossom</p>
+                <p>{{product.description}}</p>
                 <p>Immerse yourself in the elegant, floral aroma of iris blossoms, designed to enhance focus and clarity. The Focus Scented Candle creates a serene atmosphere, perfect for work, study, or relaxation. Made from natural soy wax and infused with premium essential oils, it provides a clean, even burn with a long-lasting fragrance.</p>
                 <ul>
                     <li>Shape: Classic cylindrical glass jar</li>

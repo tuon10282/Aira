@@ -47,7 +47,22 @@
             </div>
             <hr/>
         </aside>
-        <main class="product-list"></main>
-    </div>
+        <div class="product-list">
+            <div class="product" *ngFor="let f of products">
+              <div class="discount" *ngIf="f.oldPrice">{{ f.discount }}</div>
+              <img src="{{f.image}}" [alt]="f.name" width="200px" height="200px" 
+              style="cursor: pointer;"
+              (click)="viewDetail(f)"/>
+              <h4>{{ f.name }}</h4>
+              <p><span class="gold-stars">★★★★★</span> (100 đã bán)</p>
+              <p>
+                <span class="price">{{ f.price }}</span>
+                <span class="old-price" *ngIf="f.oldPrice">{{ f.oldPrice }}</span>
+              </p>
+              <button (click)="addToCart(f)">Add to Cart</button>
+            </div>
+          </div>
+          
+         </div>
 </body>
 </html>
