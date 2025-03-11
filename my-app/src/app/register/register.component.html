@@ -1,41 +1,105 @@
-<p>{{ errMessage }}</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Tiêu đề trang</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  </head>
 
-<table>
-  <tr>
-    <td><label for="name">Name:</label></td>
-    <td>
-      <input type="text" class="form-control" id="name" placeholder="Nhập Name"
-        [(ngModel)]="user.Name" />
-    </td>
-  </tr>
+<body>
+  <div class="container" id="container" #container>
+    <div class="form-container sign-up">
+      <form #userForm="ngForm" (ngSubmit)="postUser()" novalidate>
+        <h1>Create Account</h1>
+        <div class="social-icons">
+          <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+          <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+        <span>or use your email for registration</span>
+        
+        <!-- Name Input -->
+        <div class="input-container">
+          <input type="text" placeholder="Name" [(ngModel)]="user.Name" name="name" #name="ngModel" required minlength="3">
+          <i class="fa fa-exclamation-circle error-icon" *ngIf="name.invalid && name.touched"></i>
+        </div>
+        <div class="error-message" *ngIf="name.invalid && name.touched">
+          <p *ngIf="name.errors?.['required']">Name is required.</p>
+          <p *ngIf="name.errors?.['minlength']">Name must be at least 3 characters.</p>
+        </div>
 
-  <tr>
-    <td><label for="email">Email:</label></td>
-    <td>
-      <input type="text" class="form-control" id="email" placeholder="Nhập Email"
-        [(ngModel)]="user.Email" />
-    </td>
-  </tr>
+        <!-- Email Input -->
+        <div class="input-container">
+          <input type="email" placeholder="Email" [(ngModel)]="user.Email" name="email" #email="ngModel" required email>
+          <i class="fa fa-exclamation-circle error-icon" *ngIf="email.invalid && email.touched"></i>
+        </div>
+        <div class="error-message" *ngIf="email.invalid && email.touched">
+          <p *ngIf="email.errors?.['required']">Email is required.</p>
+          <p *ngIf="email.errors?.['email']">Invalid email format.</p>
+        </div>
 
-  <tr>
-    <td><label for="password">Password:</label></td>
-    <td>
-      <input type="password" class="form-control" id="password" placeholder="Nhập Password"
-        [(ngModel)]="user.Password" />
-    </td>
-  </tr>
-
-  <tr>
-    <td><label for="user_image">User Image:</label></td>
-    <td>
-      <input type="file" class="file-input" id="user_image"
-        (change)="onFileSelected($event, user)" />
-    </td>
-  </tr>
-
-  <tr>
-    <td colspan="2">
-      <button (click)="postUser()">Submit</button>
-    </td>
-  </tr>
-</table>
+        <!-- Password Input -->
+        <div class="input-container">
+          <input [type]="showPassword ? 'text' : 'password'" placeholder="Password" [(ngModel)]="user.Password" name="password" #password="ngModel" required minlength="6">
+          <i class="fa toggle-icon" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
+          <i class="fa fa-exclamation-circle error-icon" *ngIf="password.invalid && password.touched"></i>
+        </div>
+        <div class="error-message" *ngIf="password.invalid && password.touched">
+          <p *ngIf="password.errors?.['required']">Password is required.</p>
+          <p *ngIf="password.errors?.['minlength']">Password must be at least 6 characters.</p>
+        </div>
+        
+        <button type="button" (click)="postUser()">Sign Up</button>
+      </form>
+    </div>
+  
+    <div class="form-container sign-in">
+        <form #loginForm="ngForm" (ngSubmit)="loginUser()" novalidate>
+            <h1>Sign In</h1>
+            <div class="social-icons">
+                <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+            </div>
+            <span>or use your email and password</span>
+            
+            <!-- Login Email Input -->
+            <div class="input-container">
+                <input type="email" placeholder="Email" [(ngModel)]="loginData.Email" name="loginEmail" #loginEmail="ngModel" required email>
+                <i class="fa fa-exclamation-circle error-icon" *ngIf="loginEmail.invalid && loginEmail.touched"></i>
+            </div>
+            <div class="error-message" *ngIf="loginEmail.invalid && loginEmail.touched">
+                <p *ngIf="loginEmail.errors?.['required']">Email is required.</p>
+                <p *ngIf="loginEmail.errors?.['email']">Invalid email format.</p>
+            </div>
+            
+            <!-- Login Password Input -->
+            <div class="input-container">
+                <input [type]="showLoginPassword ? 'text' : 'password'" placeholder="Password" [(ngModel)]="loginData.Password" name="loginPassword" #loginPassword="ngModel" required>
+                <i class="fa toggle-icon" [ngClass]="showLoginPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="toggleLoginPasswordVisibility()"></i>
+                <i class="fa fa-exclamation-circle error-icon" *ngIf="loginPassword.invalid && loginPassword.touched"></i>
+            </div>
+            <div class="error-message" *ngIf="loginPassword.invalid && loginPassword.touched">
+                <p *ngIf="loginPassword.errors?.['required']">Password is required.</p>
+            </div>
+            
+            <a href="#">Forgot your email or password?</a>
+            <button type="button" (click)="loginUser()">Sign In</button>
+        </form>
+    </div>
+  
+    <div class="toggle-container">
+        <div class="toggle">
+            <div class="toggle-panel toggle-left">
+                <h1>Welcome Back!</h1>
+                <p>Enter your personal details to use all site features</p>
+                <button type="button" class="hidden" (click)="toggleLogin()">Sign In</button>
+            </div>
+            <div class="toggle-panel toggle-right">
+                <h1>Hello, User!</h1>
+                <p>Register with your personal details to use all site features</p>
+                <button type="button" class="hidden" (click)="toggleRegister()">Sign Up</button>
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>

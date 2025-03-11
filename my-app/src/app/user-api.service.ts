@@ -1,26 +1,46 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
-import { Users } from '../classes/Users'; // Import đúng class Users
+import { Users } from '../classes/Users';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserAPIService {  // Sửa lại tên đúng chuẩn (UserAPIService)
-  
-  constructor(private _http: HttpClient) {}  // Inject HttpClient vào service
+export class UserAPIService {
+  constructor(private _http: HttpClient) {}
 
-  postUser(aUser: Users): Observable<Users> { // Kiểu dữ liệu đúng
+  // Method for user registration
+  postUser(aUser: Users): Observable<Users> {
     const headers = new HttpHeaders().set("Content-Type", "application/json;charset=utf-8");
     const requestOptions = {
       headers: headers,
-      responseType: "text" as "json"  // Sửa responseType để tránh lỗi TypeScript
+      responseType: "text" as "json"
     };
-
+    
     return this._http.post<Users>("http://localhost:3002/users", JSON.stringify(aUser), requestOptions).pipe(
-      map(res => res as Users),  // Chuyển đổi dữ liệu nhận về thành Users
-      retry(3),  // Thử lại 3 lần nếu có lỗi mạng
-      catchError(this.handleError) // Xử lý lỗi
+      map(res => res as Users),
+      retry(3),
+      catchError(this.handleError)
+    );
+  }
+  
+  // Method for user login
+  loginUser(loginData: {Email: string, Password: string}): Observable<any> {
+    const headers = new HttpHeaders().set("Content-Type", "application/json;charset=utf-8");
+    const requestOptions = {
+      headers: headers,
+      responseType: "text" as "json"
+    };
+    
+    return this._http.post<any>("http://localhost:3002/login", JSON.stringify(loginData), requestOptions).pipe(
+      map(res => {
+        if (typeof res === "string") {
+          return JSON.parse(res);
+        }
+        return res;
+      }),
+      retry(3),
+      catchError(this.handleError)
     );
   }
 
