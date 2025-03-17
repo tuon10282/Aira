@@ -1,7 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { UserAPIService } from '../user-api.service';
+import { AuthService } from '../auth.service';
 import { Users } from '../../classes/Users';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';  // Add this import
+
 
 @Component({
   selector: 'app-register',
@@ -27,7 +30,10 @@ export class RegisterComponent {
   @ViewChild('userForm') userForm!: NgForm;
   @ViewChild('loginForm') loginForm!: NgForm;
   
-  constructor(private _service: UserAPIService) {}
+  constructor(private _service: UserAPIService,
+    private router: Router,  // Add this injection
+    private authService: AuthService
+  ) {}
   
   ngAfterViewInit() {
     console.log("Container:", this.container);
@@ -151,18 +157,26 @@ export class RegisterComponent {
       return; // Dừng xử lý tiếp theo
     }
     
-    // Nếu form hợp lệ, tiến hành đăng nhập
-    // Ở đây bạn cần thêm service method cho đăng nhập
-    this._service.loginUser(this.loginData).subscribe({
-      next: (data) => {
-        console.log("Login successful:", data);
+  // If form is valid, proceed with login
+  this._service.loginUser(this.loginData).subscribe({
+    next: (data) => {
+      console.log("Full API Response:", data);
+  
+      if (data && data.auth && data.auth.token) {
+        // Use the auth service instead of directly manipulating localStorage
+        this.authService.login(data.auth.token, data.user);
+        
         alert("Login successful!");
-        // Xử lý thành công, ví dụ: redirect hoặc lưu token
-      },
-      error: (err) => {
-        console.error("Login error:", err);
-        alert("Login failed: " + err);
+        this.router.navigate(['']);
+      } else {
+        console.warn('No token received in response:', data);
+        alert("Login successful but no token received!");
       }
-    });
-  }
+    },
+    error: (err) => {
+      console.error("Login error:", err);
+      alert("Login failed: " + err.message);
+    }
+  });
+}
 }

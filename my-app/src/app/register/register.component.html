@@ -48,7 +48,7 @@
           <p *ngIf="password.errors?.['minlength']">Password must be at least 6 characters.</p>
         </div>
         
-        <button type="button" (click)="postUser()">Sign Up</button>
+        <button type="submit">Sign Up</button>
       </form>
     </div>
   
@@ -82,8 +82,8 @@
             </div>
             
             <a href="#">Forgot your email or password?</a>
-            <button type="button" (click)="loginUser()">Sign In</button>
-        </form>
+            <button type="submit">Sign In</button>
+          </form>
     </div>
   
     <div class="toggle-container">

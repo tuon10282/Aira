@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lora:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="page-title">MY PROFILE</h1>
+            <div class="title-underline"></div>
+        </header>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <h2 class="sidebar-title">ACCOUNT</h2>
+                <nav class="sidebar-menu">
+                    <a href="#" class="sidebar-link active">Account Info</a>
+                    <a href="#" class="sidebar-link">My Orders</a>
+                    <a href="javascript:void(0)" (click)="logout()" class="sidebar-link">Log Out</a>
+                </nav>
+            </div>
+            
+            <div class="content">
+                <h2 class="content-title">ACCOUNT INFO</h2>
+                
+                <form class="account-form">
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="Full Name *" *ngIf="isLoggedIn && currentUser" [value]="currentUser.Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="" *ngIf="isLoggedIn && currentUser" [value]="currentUser.Email" [readonly]="true">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="Address">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <input type="text" class="form-input" placeholder="">
+                        </div>
+                        <div class="form-group half">
+                            <input type="text" class="form-input" placeholder="">
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-update">Update</button>
+                        <button type="button" class="btn btn-cancel">Cancel</button>
+                    </div>
+                    
+                    <div class="password-section">
+                        <a href="#" class="password-link">Update Password ? Click here!</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

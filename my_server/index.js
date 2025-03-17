@@ -8,7 +8,8 @@ app.use(morgan("combined"));
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
+const bcrypt = require('bcrypt');
+const saltRounds = 10; // Độ phức tạp của mã hóa, 10 là giá trị phổ biến
 const cors = require("cors");
 app.use(cors());
 
@@ -35,23 +36,42 @@ app.get("/users", cors(), async (req, res) => {
 });
 
 // Create new user
+// Create new user
 app.post("/users", cors(), async (req, res) => {
-  // Check if email already exists
-  const existingUser = await usersCollection.findOne({ Email: req.body.Email });
-  if (existingUser) {
-    return res.status(400).send({ error: "Email already registered" });
+  try {
+    // Check if email already exists
+    const existingUser = await usersCollection.findOne({ Email: req.body.Email });
+    if (existingUser) {
+      return res.status(400).send({ error: "Email already registered" });
+    }
+    
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(req.body.Password, saltRounds);
+    
+    // Replace plain password with hashed one
+    const userWithHashedPassword = {
+      ...req.body,
+      Password: hashedPassword
+    };
+    
+    // Put json User into database
+    await usersCollection.insertOne(userWithHashedPassword);
+    
+    // Send message to client (don't send back the hashed password)
+    const { Password, ...userWithoutPassword } = userWithHashedPassword;
+    res.send(userWithoutPassword);
+  } catch (error) {
+    console.error("Registration error:", error);
+    res.status(500).send({ error: "Internal server error" });
   }
-  
-  // Put json User into database
-  await usersCollection.insertOne(req.body);
-  // Send message to client
-  res.send(req.body);
 });
+const jwt = require('jsonwebtoken');
+const SECRET_KEY = "aira_demo_secret_key"; // Đủ dùng cho mục đích demo
 
 // Login endpoint
 app.post("/login", cors(), async (req, res) => {
   try {
-    // Find user with matching email and password
+    // Find user with matching email
     const { Email, Password } = req.body;
     
     // Validate input
@@ -67,37 +87,33 @@ app.post("/login", cors(), async (req, res) => {
       return res.status(401).send({ error: "Invalid email or password" });
     }
     
-    // Check if password matches
-    if (user.Password !== Password) {
+    // Compare hashed password
+    const passwordMatch = await bcrypt.compare(Password, user.Password);
+    
+    if (!passwordMatch) {
       return res.status(401).send({ error: "Invalid email or password" });
     }
+    
+    // Generate JWT token
+    const token = jwt.sign(
+      { userId: user._id.toString(), email: user.Email },
+      SECRET_KEY,
+      { expiresIn: '24h' }
+    );
     
     // Remove password from response
     const { Password: userPassword, ...userWithoutPassword } = user;
     
-    // Return user data (without password)
+    // Return user data with token
     res.status(200).send({
       message: "Login successful",
-      user: userWithoutPassword
+      user: userWithoutPassword,
+      auth: {
+        token: token
+      }
     });
   } catch (error) {
     console.error("Login error:", error);
-    res.status(500).send({ error: "Internal server error" });
-  }
-});
-
-// Get user by ID endpoint
-app.get("/users/:id", cors(), async (req, res) => {
-  try {
-    var o_id = new ObjectId(req.params["id"]);
-    const result = await usersCollection.findOne({ _id: o_id });
-    
-    if (!result) {
-      return res.status(404).send({ error: "User not found" });
-    }
-    
-    res.send(result);
-  } catch (error) {
     res.status(500).send({ error: "Internal server error" });
   }
 });

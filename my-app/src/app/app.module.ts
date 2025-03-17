@@ -18,10 +18,14 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorComponent } from './error/error.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { ProfileComponent } from './profile/profile.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     FooterComponent,
     AboutComponent,
     HomeComponent,
@@ -31,7 +35,8 @@ import { ErrorComponent } from './error/error.component';
     ProductDetailComponent,
     CartComponent,
     RegisterComponent,
-    ErrorComponent
+    ErrorComponent,
+    FeedbackComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,8 +45,12 @@ import { ErrorComponent } from './error/error.component';
     HttpClientModule,
     ProductComponent,
     CheckoutComponent,
+    HeaderComponent,
+    ProfileComponent
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

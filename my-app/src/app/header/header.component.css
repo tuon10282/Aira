@@ -11,7 +11,7 @@ body {
     overflow-x: hidden;
 }
 header {
-    padding: 20px 0; /* Thêm padding trên và dưới */
+    padding: 20px 0;
 }
 
 .top-row {
@@ -89,20 +89,51 @@ header {
     flex: 1;
     text-align: center;
 }
+.user-name {
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+    margin-right: 10px;
+}
 
 .nav-menu a:hover {
     color: #FAF5F0;
 }
+.user-auth {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-name a {
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+    text-decoration: none;
+}
+
+.auth-links a {
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
 .dropdown {
     position: relative;
-    display: inline-block;
+    display: flex;
+    align-items: center;
 }
 
 .dropbtn {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 24px;
 }
 
 .dropdown-content {
@@ -130,4 +161,11 @@ header {
 
 .dropdown:hover .dropdown-content {
     display: block;
+}
+.logo a {
+    color: white;
+    text-decoration: none;
+    font-size: 50px;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
 }

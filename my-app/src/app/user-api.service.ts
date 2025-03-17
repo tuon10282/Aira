@@ -25,20 +25,14 @@ export class UserAPIService {
   }
   
   // Method for user login
+// Modify your UserAPIService.loginUser method like this:
   loginUser(loginData: {Email: string, Password: string}): Observable<any> {
     const headers = new HttpHeaders().set("Content-Type", "application/json;charset=utf-8");
-    const requestOptions = {
-      headers: headers,
-      responseType: "text" as "json"
-    };
     
-    return this._http.post<any>("http://localhost:3002/login", JSON.stringify(loginData), requestOptions).pipe(
-      map(res => {
-        if (typeof res === "string") {
-          return JSON.parse(res);
-        }
-        return res;
-      }),
+    // Remove the text responseType to get proper JSON
+    return this._http.post<any>("http://localhost:3002/login", JSON.stringify(loginData), {
+      headers: headers
+    }).pipe(
       retry(3),
       catchError(this.handleError)
     );

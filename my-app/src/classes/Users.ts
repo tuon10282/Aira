@@ -5,3 +5,9 @@ export class Users {
         public Password: string = ""
     ) {}
 }
+export interface User {
+    Name: string;
+    Email: string;
+    Password: string; // Nếu không cần password, có thể bỏ đi
+  }
+  

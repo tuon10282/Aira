@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1 class="page-title">FEEDBACK</h1>
+        <div class="title-underline"></div>
+    </header>
+
+    <main class="container">
+        <!-- First Order -->
+        <section class="order-section">
+            <div class="order-info">
+                <h2 class="order-code">Order code: XYZ</h2>
+                <p class="order-date">dd/mm/yyyy</p>
+            </div>
+
+            <div class="order-card">
+                <div class="product-container">
+                    <div class="product-image-container">
+                        <img src="https://placehold.co/175x175" alt="Product image" class="product-image">
+                    </div>
+                    
+                    <div class="product-details">
+                        <h3 class="product-name">Product name</h3>
+                        
+                        <div class="product-meta">
+                            <span class="product-variant">White</span>
+                            <span class="product-quantity">Quantity: 1</span>
+                        </div>
+                        
+                        <textarea class="product-comment" placeholder="Write something..."></textarea>
+                        
+                        <div class="feedback-actions">
+                            <div class="rating">
+                                <input type="radio" id="star1-1" name="rating-1" value="1">
+                                <label for="star1-1"></label>
+                                <input type="radio" id="star2-1" name="rating-1" value="2">
+                                <label for="star2-1"></label>
+                                <input type="radio" id="star3-1" name="rating-1" value="3">
+                                <label for="star3-1"></label>
+                                <input type="radio" id="star4-1" name="rating-1" value="4">
+                                <label for="star4-1"></label>
+                                <input type="radio" id="star5-1" name="rating-1" value="5">
+                                <label for="star5-1"></label>
+                            </div>
+                            <button class="btn-submit">Submit Feedback</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Second Order -->
+        <section class="order-section">
+            <div class="order-info">
+                <h2 class="order-code">Order code: ABC</h2>
+                <p class="order-date">dd/mm/yyyy</p>
+            </div>
+
+            <div class="order-card">
+                <div class="product-container">
+                    <div class="product-image-container">
+                        <img src="https://placehold.co/175x175" alt="Product image" class="product-image">
+                    </div>
+                    
+                    <div class="product-details">
+                        <h3 class="product-name">Product name</h3>
+                        
+                        <div class="product-meta">
+                            <span class="product-variant">White</span>
+                            <span class="product-quantity">Quantity: 1</span>
+                        </div>
+                        
+                        <div class="product-comment">Good!</div>
+                        
+                        <div class="feedback-actions">
+                            <div class="rating rated">
+                                <input type="radio" id="star1-2" name="rating-2" value="1">
+                                <label for="star1-2"></label>
+                                <input type="radio" id="star2-2" name="rating-2" value="2">
+                                <label for="star2-2"></label>
+                                <input type="radio" id="star3-2" name="rating-2" value="3">
+                                <label for="star3-2"></label>
+                                <input type="radio" id="star4-2" name="rating-2" value="4">
+                                <label for="star4-2"></label>
+                                <input type="radio" id="star5-2" name="rating-2" value="5" checked>
+                                <label for="star5-2"></label>
+                            </div>
+                            <button class="btn-redeem">Redeem</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

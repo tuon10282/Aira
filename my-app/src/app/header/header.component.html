@@ -14,18 +14,22 @@
         <input type="text" placeholder="Search..." class="search-input">
         <span class="material-icons search-icon">search</span>
       </div>
-      <div class="logo">AIRA</div>
+      <div class="logo"><a [routerLink]="'/home'">AIRA</a></div>
       <div class="icons">
-        <div class="dropdown">
-          <button class="dropbtn">
-              <span class="material-icons">person</span>
-          </button>
-          <div class="dropdown-content">
-            <a [routerLink]="'/dangnhap'">Đăng nhập</a>
-            <a [routerLink]="'/dangky'">Đăng ký</a>
-        </div>        
-      </div>        
-      <a [routerLink]="'/giohang'"><span class="material-icons">shopping_cart</span></a>
+        <div class="user-auth">
+          <!-- Nếu đã đăng nhập, hiển thị "Hi! {username}" -->
+          <div *ngIf="isLoggedIn && currentUser" class="user-name">
+            <a [routerLink]="'/profile'">Hi! {{ currentUser.Name }}</a>
+          </div>
+          
+          <!-- Nếu chưa đăng nhập, hiển thị Sign In / Sign Up -->
+          <div *ngIf="!isLoggedIn" class="auth-links">
+            <a [routerLink]="'/register'">Sign In/Sign Up</a>
+          </div>
+        </div>
+        <!-- Added person icon with link to profile -->
+        <a [routerLink]="'/profile'"><span class="material-icons">person</span></a>
+        <a [routerLink]="'/giohang'"><span class="material-icons">shopping_cart</span></a>
       </div>
     </div>
     <nav class="nav-menu">
