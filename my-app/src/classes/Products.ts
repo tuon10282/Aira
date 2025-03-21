@@ -1,22 +1,27 @@
 export class Product {
-    constructor(
-      public id: string = "",
-      public name: string = "",
-      public description: string = "",
-      public category: string = "",
-      public brand: string = "",
-      public weight: string = "",
-      public dimensions: { height: string; diameter: string } = { height: "", diameter: "" },
-      public burn_time: string = "",
-      public ingredients: string[] = [],
-      public scents: string[] = [],
-      public colors: string[] = [],
-      public price: number = 0,
-      public currency: string = "",
-      public availability: string = "",
-      public rating: number = 0,
-      public reviews_count: number = 0,
-      public package_contents: string[] = [],
-      public image: string = ""
-    ) {}
-  }
+  constructor(
+    public _id: string = "",
+    public ProductName: string = "",
+    public Description: string = "",
+    public CategoryId: string = "", 
+    public Fragrance: string = "",
+    public Weight: number = 0,
+    public BurningTime: number = 0,
+    public Color: string = "",
+    public Price: number = 0,
+    public oldPrice: number = 0,
+    public StockQuantity: number = 0,
+    public SKU: string = "",
+    public Images: string[] = [],
+    public Rating: number = 0,
+    public ReviewCount: number = 0,
+    public CreatedAt: Date = new Date(),
+    public UpdatedAt: Date = new Date(),
+    public Sold: number = 0
+  ) {}
+
+  // // Getter để kiểm tra tình trạng hàng
+  // get availability(): string {
+  //   return this.stockQuantity > 0 ? "In Stock" : "Out of Stock";
+  // }
+}

@@ -28,6 +28,10 @@ database = client.db("Aira");
 
 usersCollection = database.collection("Users");
 productsCollection = database.collection("Products");
+reviewsCollection = database.collection("Reviews");
+cartCollection = database.collection("Cart");
+checkoutCollection = database.collection("Checkout");
+
 
 // Get all users
 app.get("/users", cors(), async (req, res) => {
@@ -129,4 +133,77 @@ app.get("/products/:id", cors(), async (req, res) => {
   var o_id = new ObjectId(req.params["id"]);
   const result = await productsCollection.find({ _id: o_id }).toArray();
   res.send(result[0]);
+});
+
+// Get all reviews
+app.get("/reviews", cors(), async (req, res) => {
+  const result = await reviewsCollection.find({}).toArray();
+  res.send(result);
+});
+
+// Get reviews by ProductID
+app.get("/reviews/product/:id", cors(), async (req, res) => {
+  try {
+    const productId = req.params["id"];
+    
+    // Validate if productId is valid
+    if (!ObjectId.isValid(productId)) {
+      return res.status(400).send({ error: "Invalid product ID format" });
+    }
+    
+    // Try to find reviews matching ProductID as string
+    let reviews = await reviewsCollection.find({ ProductID: productId }).toArray();
+    
+    // If no reviews found, try with ObjectId
+    if (reviews.length === 0) {
+      reviews = await reviewsCollection.find({ ProductID: new ObjectId(productId) }).toArray();
+    }
+    
+    // Add debug information
+    console.log(`Product ID: ${productId}`);
+    console.log(`Reviews found: ${reviews.length}`);
+    
+    res.send(reviews);
+  } catch (error) {
+    console.error("Error fetching reviews by product ID:", error);
+    res.status(500).send({ error: "Internal server error" });
+  }
+});
+// Query Product
+app.get('/api/products/search', async (req, res) => {
+  try {
+    const searchTerm = req.query.q || '';
+    
+    const products = await productsCollection.find({
+      $or: [
+        { ProductName: { $regex: searchTerm, $options: 'i' } },
+        { Description: { $regex: searchTerm, $options: 'i' } },
+      ]
+    }).toArray();
+    
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Filter
+// API endpoint để lấy tất cả các màu sắc duy nhất
+app.get('/api/colors', async (req, res) => {
+  try {
+    // Lấy tất cả các giá trị Color duy nhất từ collection Products
+    const colorValues = await productsCollection.distinct('Color');
+
+    // Chuyển đổi thành mảng đối tượng để client dễ sử dụng
+    const colors = colorValues
+      .filter(color => color) // Loại bỏ các giá trị null/undefined
+      .map(color => ({
+        name: color
+      }));
+
+    res.json(colors);
+  } catch (error) {
+    console.error('Lỗi khi lấy dữ liệu màu sắc:', error);
+    res.status(500).json({ error: 'Không thể lấy dữ liệu màu sắc' });
+  }
 });

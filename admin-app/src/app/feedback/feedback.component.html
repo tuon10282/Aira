@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="top-section">
+            <div class="search-bar">
+                <input type="text" placeholder="Search">
+                <div class="search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            
+            <div class="header-section">
+                <h1 class="title">Feedbacks</h1>
+                
+                <div class="rating-filter">
+                    <div class="select-container">
+                        <span>Select Rating</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="feedback-table-container">
+            <div class="feedback-search">
+                <input type="text" placeholder="Search">
+                <div class="search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            
+            <table class="feedback-table">
+                <thead>
+                    <tr>
+                        <th class="checkbox-column">
+                            <div class="checkbox"></div>
+                        </th>
+                        <th>Product</th>
+                        <th>Name</th>
+                        <th>Reviews</th>
+                        <th>Rating</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="checkbox"></div>
+                        </td>
+                        <td>Matcha Latte Scented Candle</td>
+                        <td>Nguyen Van A</td>
+                        <td>Nice product!</td>
+                        <td>
+                            <div class="star-rating">
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </td>
+                        <td>Jan 12 , 12:23 pm</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox"></div>
+                        </td>
+                        <td>Flamingo Scented Candle</td>
+                        <td>Vu Thi B</td>
+                        <td>Good quality product</td>
+                        <td>
+                            <div class="star-rating">
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </td>
+                        <td>May 01 , 01:13 pm</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox"></div>
+                        </td>
+                        <td>Blue Shell Scented Candle</td>
+                        <td>Vo Van C</td>
+                        <td>Have to wait so long for the...</td>
+                        <td>
+                            <div class="star-rating">
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </td>
+                        <td>Sep 20 , 09:08 am</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox"></div>
+                        </td>
+                        <td>Lavender Heart Scented Candle</td>
+                        <td>Le Thi D</td>
+                        <td>I'm very happy, the product...</td>
+                        <td>
+                            <div class="star-rating">
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </td>
+                        <td>Sep 20 , 09:08 am</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox"></div>
+                        </td>
+                        <td>Rosy Candle</td>
+                        <td>Trinh Van E</td>
+                        <td>Very expensive! I bought it...</td>
+                        <td>
+                            <div class="star-rating">
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </td>
+                        <td>Sep 20 , 09:08 am</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="table-footer">
+                <div class="entries-info">Showing 1 to 5 of 100 entries</div>
+                <div class="pagination">
+                    <button class="page-btn prev-btn">Previous</button>
+                    <button class="page-btn num-btn active">1</button>
+                    <button class="page-btn num-btn">2</button>
+                    <button class="page-btn num-btn">3</button>
+                    <button class="page-btn next-btn">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

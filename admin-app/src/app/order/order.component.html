@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="search-container">
+            <input type="text" placeholder="Search" class="search-input">
+            <button class="search-button">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11" cy="11" r="7" stroke="#555555" stroke-width="2"/>
+                    <path d="M20 20L16 16" stroke="#555555" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Order List</h1>
+
+        <div class="status-filter">
+            <span>Status</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6L8 10L12 6" stroke="#555555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+
+        <div class="card">
+            <div class="filter-container">
+                <input type="text" placeholder="Search" class="filter-input">
+                <button class="filter-button">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="11" cy="11" r="7" stroke="#FFFFFF" stroke-width="2"/>
+                        <path d="M20 20L16 16" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <table class="order-table">
+                <thead>
+                    <tr>
+                        <th class="checkbox-column">
+                            <input type="checkbox" id="select-all" class="checkbox">
+                            <label for="select-all" class="checkbox-label"></label>
+                        </th>
+                        <th>Image</th>
+                        <th>Order Name</th>
+                        <th>Customer</th>
+                        <th>Date & Time</th>
+                        <th>Payment</th>
+                        <th>Status</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="checkbox-column">
+                            <input type="checkbox" id="row1" class="checkbox">
+                            <label for="row1" class="checkbox-label"></label>
+                        </td>
+                        <td><img src="https://placehold.co/35x35" alt="Product" class="product-image"></td>
+                        <td>#SC0001</td>
+                        <td>Nguyen Van A</td>
+                        <td>Jan 12 , 12:23 pm</td>
+                        <td>Bank Transfer</td>
+                        <td><span class="status success">Success</span></td>
+                        <td>95,000 VND</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-column">
+                            <input type="checkbox" id="row2" class="checkbox">
+                            <label for="row2" class="checkbox-label"></label>
+                        </td>
+                        <td><img src="https://placehold.co/35x35" alt="Product" class="product-image"></td>
+                        <td>#SC0003</td>
+                        <td>Vu Thi B</td>
+                        <td>May 01 , 01:13 pm</td>
+                        <td>COD</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>85,000 VND</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-column">
+                            <input type="checkbox" id="row3" class="checkbox">
+                            <label for="row3" class="checkbox-label"></label>
+                        </td>
+                        <td><img src="https://placehold.co/35x35" alt="Product" class="product-image"></td>
+                        <td>#SC0002</td>
+                        <td>Vo Van C</td>
+                        <td>Sep 20 , 09:08 am</td>
+                        <td>Momo</td>
+                        <td><span class="status success">Success</span></td>
+                        <td>87, 000 VND</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-column">
+                            <input type="checkbox" id="row4" class="checkbox">
+                            <label for="row4" class="checkbox-label"></label>
+                        </td>
+                        <td><img src="https://placehold.co/35x35" alt="Product" class="product-image"></td>
+                        <td>#SC0002</td>
+                        <td>Le Thi D</td>
+                        <td>Sep 20 , 09:08 am</td>
+                        <td>COD</td>
+                        <td><span class="status cancel">Cancel</span></td>
+                        <td>75,000 VND</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox-column">
+                            <input type="checkbox" id="row5" class="checkbox">
+                            <label for="row5" class="checkbox-label"></label>
+                        </td>
+                        <td><img src="https://placehold.co/35x35" alt="Product" class="product-image"></td>
+                        <td>#SC0002</td>
+                        <td>Trinh Van E</td>
+                        <td>Sep 20 , 09:08 am</td>
+                        <td>Bank Transfer</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>95,000 VND</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <div class="entries-info">Showing 1 to 5 of 100 entries</div>
+                <div class="pagination-controls">
+                    <button class="btn-page btn-prev">Previous</button>
+                    <button class="btn-page active">1</button>
+                    <button class="btn-page">2</button>
+                    <button class="btn-page">3</button>
+                    <button class="btn-page btn-next">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

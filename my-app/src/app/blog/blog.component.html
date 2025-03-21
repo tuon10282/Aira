@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIRA BLOG</title>
+</head>
+<body>
+    <header class="header">
+        <div class="silk-texture"></div>
+        <h1 class="blog-title">AIRA BLOG</h1>
+        <nav class="navigation">
+            <button class="nav-button" data-target="smell">Smell</button>
+            <button class="nav-button" data-target="story">The Story of Scented Candles</button>
+            <button class="nav-button" data-target="meaning">Meaning</button>
+        </nav>
+    </header>
+
+    <section id="smell">
+        <h2 class="section-title">Smell</h2>
+        <div class="blog-posts">
+            <div class="blog-post" onclick="openBlogPost('peach-cherry.html')">
+                <img src="tải xuống (6).jpg" alt="Peach and Cherry Blossom" class="blog-post-image">
+                <div class="blog-post-content">
+                    <h3 class="blog-post-title">Peach & Cherry Blossom</h3>
+                    <p class="blog-post-subtitle">- The Scent of Sweetness and Freshness</p>
+                    <p class="blog-post-date">15/03/2025</p>
+                </div>
+            </div>
+
+            <div class="blog-post" onclick="openBlogPost('pear-cedarwood.html')">
+                <img src="tải xuống (12).jpg" alt="Pear and Cedarwood" class="blog-post-image">
+                <div class="blog-post-content">
+                    <h3 class="blog-post-title">The Timeless Elegance of Pear & Cedarwood Scented Candles</h3>
+                    <p class="blog-post-subtitle"></p>
+                    <p class="blog-post-date">01/03/2025</p>
+                </div>
+            </div>
+
+            <div class="blog-post" onclick="openBlogPost('mango-coconut.html')">
+                <img src="Coconut Mango Ice Cream - Sticky Rice Thai Kitchen.jpg" alt="Mango and Coconut" class="blog-post-image">
+                <div class="blog-post-content">
+                    <h3 class="blog-post-title">Escape to Paradise: The Tropical Bliss of Mango & Coconut Scented Candles</h3>
+                    <p class="blog-post-subtitle"></p>
+                    <p class="blog-post-date">17/07/2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="story">
+        <h2 class="section-title">The Story of Scented Candles</h2>
+        <div class="blog-posts">
+            <div class="blog-post" onclick="openBlogPost('tulip-scented.html')">
+                <img src="tải xuống (11).jpg" alt="Tulip Scented Candle" class="blog-post-image">
+                <div class="blog-post-content">
+                    <h3 class="blog-post-title">The Story of the Tulip-Scented Candle</h3>
+                    <p class="blog-post-subtitle">A Journey of Elegance and Grace</p>
+                    <p class="blog-post-date">02/01/2025</p>
+                </div>
+            </div>
+
+            <div class="blog-post" onclick="openBlogPost('wedding-candle.html')">
+                <img src="wedding candle.jpg" alt="Wedding Candle" class="blog-post-image">
+                <div class="blog-post-content">
+                    <h3 class="blog-post-title">The Wedding Candle</h3>
+                    <p class="blog-post-subtitle">A Love Story in Fragrance</p>
+                    <p class="blog-post-date">07/07/2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="meaning">
+        <h2 class="section-title">Meaning</h2>
+        <div class="blog-posts">
+            <div class="blog-post" onclick="openBlogPost('using-scented-candles.html')">
+                <img src="using of sc.jpg" alt="Using Scented Candles" class="blog-post-image">
+                <div class="blog-post-content">
+                    <h3 class="blog-post-title">The Meaning of Using Scented Candles</h3>
+                    <p class="blog-post-subtitle">More Than Just a Fragrance</p>
+                    <p class="blog-post-date">28/10/2024</p>
+                </div>
+            </div>
+
+            <div class="blog-post" onclick="openBlogPost('hidden-meaning.html')">
+                <img src="hidden.jpg" alt="Hidden Meaning" class="blog-post-image">
+                <div class="blog-post-content">
+                    <h3 class="blog-post-title">The Hidden Meaning of Scented Candles</h3>
+                    <p class="blog-post-subtitle">A Journey of Emotion and Atmosphere</p>
+                    <p class="blog-post-date">02/05/2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 AIRA BLOG. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        const navButtons = document.querySelectorAll('.nav-button');
+        
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Scroll to the section
+                const targetId = button.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Blog post click functionality - Đã cập nhật
+        function openBlogPost(url) {
+            // Mở trực tiếp URL được truyền vào
+            window.open(url, "_blank");
+        }
+
+        // Highlight the active section based on scroll position
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.pageYOffset >= sectionTop - 100 && window.pageYOffset < sectionTop + sectionHeight - 100) {
+                    const id = section.getAttribute('id');
+                    
+                    navButtons.forEach(button => {
+                        button.classList.remove('active');
+                        if (button.getAttribute('data-target') === id) {
+                            button.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

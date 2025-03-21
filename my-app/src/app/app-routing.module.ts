@@ -14,6 +14,7 @@ import { ErrorComponent } from './error/error.component';
 import { AuthGuard } from './auth.guard';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ProfileComponent } from './profile/profile.component';
+import { BlogComponent } from './blog/blog.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent,canActivate: [AuthGuard] }, // Trang chủ
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'view-product-detail/:id', component: ProductDetailComponent },
   { path: 'feedback', component: FeedbackComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'blog', component: BlogComponent },
   { path: 'error', component: ErrorComponent }, // ✅ Route cho trang lỗi
   { path: '**', redirectTo: 'error' }, // ✅ Chuyển hướng đến trang lỗi nếu route không hợp lệ
  

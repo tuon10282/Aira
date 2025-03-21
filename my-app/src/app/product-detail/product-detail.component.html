@@ -9,74 +9,158 @@
         
         <div class="product-images">
             <div class="main-image">
-                <img src={{product.image}} alt="Product picture">
+                <img [src]="product.Images[0]" alt="Product picture">
             </div>
             <div class="thumbnail-images">
-                <img src="assets/images/product nhỏ.png" alt="Product picture">
-                <img src="assets/images/product nhỏ.png" alt="Product picture">
-                <img src="assets/images/product nhỏ.png" alt="Product picture">
+                <img [src]="product.Images[0]" alt="Product picture">
+                <img [src]="product.Images[0]" alt="Product picture">
+                <img [src]="product.Images[0]" alt="Product picture">
             </div>
         </div>
 
         <div class="product-info">
-            <h1 class="product-title">{{product.name}}</h1>
-            <div class="status">Status: <span>{{product.availability}}</span></div>
-            <div class="price">{{product.price}}<span class="original-price">120.000 VND</span></div>
-            <div class="discount">{{product.discount}}</div>
-            <div class="bought-info">{{product.bought_info}} in last month</div>
-            <h4>Rating</h4><div class="rating">{{product.rating}}</div>
+            <h1 class="product-title">{{product.ProductName}}</h1>
+            <div class="status">
+                Status: <span>{{ product.StockQuantity > 0 ? 'In Stock' : 'Out of Stock' }}</span>
+              </div>
+            <div class="price">{{product.Price| number:'1.0-0' }} VND<span class="original-price">{{product.oldPrice| number:'1.0-0' }} VND</span></div>
+            <h4>Discount:</h4><div class="discount" *ngIf="product.oldPrice">{{ ((1 - product.Price / product.oldPrice) * 100) | number: '1.0-0' }}%</div>            
+            <div class="bought-info">{{product.Sold}} in last month</div>
+            <h4>Rating</h4><div class="rating">
+                <span class="star-rating">
+                    <span class="empty-stars">★★★★★</span>
+                    <span class="filled-stars" [style.width.%]="product.Rating * 20">★★★★★</span>
+                  </span>  
+            </div>
             
             <div class="quantity">
                 Quantity: 
-                <select>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
+                <input type="number" min="1" max="100" value="1">
                 <button class="add-to-cart">ADD TO CART</button>
             </div>
-
+            
             <div class="product-description">
                 <h3>Product description:</h3>
-                <p>{{product.description}}</p>
-                <p>Immerse yourself in the elegant, floral aroma of iris blossoms, designed to enhance focus and clarity. The Focus Scented Candle creates a serene atmosphere, perfect for work, study, or relaxation. Made from natural soy wax and infused with premium essential oils, it provides a clean, even burn with a long-lasting fragrance.</p>
+                <p>{{product.Description}}</p>
+                <p>Immerse yourself in the elegant, floral aroma of {{product.Fragrance}}, designed to enhance focus and clarity. The Focus Scented Candle creates a serene atmosphere, perfect for work, study, or relaxation. Made from natural soy wax and infused with premium essential oils, it provides a clean, even burn with a long-lasting fragrance.</p>
                 <ul>
                     <li>Shape: Classic cylindrical glass jar</li>
-                    <li>Size: 200g | Burn time: ~40 hours</li>
-                    <li>Material: Natural soy wax, lead-free cotton wick, high-quality essential oils</li>
+                    <li>Size: 200g | Burn time: ~{{product.BurningTime}}</li>
                     <li>Dimensions: 8 cm × 7 cm</li>
                     <li>Recommended for: Ages 12+ | Ideal for workspaces, bedrooms, and reading nooks</li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="product-container">
-    <div class="relevant-products">
-        <h3>Relevant products:</h3>
-        <div class="product-grid">
-            <div class="product-card">
-                <img src="assets/images/matcha.png" alt="Matcha Latte Candle">
-                <h4>Matcha Latte Scented Candle</h4>
-                <div class="price">90.000 VND</div>
-            </div>
-            <div class="product-card">
-                <img src="assets/images/flamingo.png" alt="Flamingo Candle">
-                <h4>Flamingo Scented Candle</h4>
-                <div class="price">85.000 VND</div>
-            </div>
-            <div class="product-card">
-                <img src="assets/images/shell.png" alt="Blue Shell Candle">
-                <h4>Blue Shell Scented Candle</h4>
-                <div class="price">87.000 VND</div>
-            </div>
-            <div class="product-card">
-                <img src="assets/images/lavender.png" alt="Lavender Heart Candle">
-                <h4>Lavender Heart Scented Candle</h4>
-                <div class="price">75.000 VND</div>
-            </div><br/>
-            <a href="#" class="see-more">You want to see more...</a>
+
+    <!-- <div class="feedback-section">
+      <h2 class="section-title">ĐÁNH GIÁ SẢN PHẨM</h2>
+      
+      <div class="rating-summary">
+        <div class="average-rating">
+          <span class="rating-number">4.8</span>
+          <span class="rating-scale">trên 5</span>
+          <div class="star-rating">
+            <span class="filled-stars">★★★★★</span>
+          </div>
         </div>
+        
+        <div class="rating-filters">
+          <button class="filter-btn primary">Tất Cả</button>
+          <button class="filter-btn">5 Sao (12,4k)</button>
+          <button class="filter-btn">4 Sao (986)</button>
+          <button class="filter-btn">3 Sao (361)</button>
+          <button class="filter-btn">2 Sao (156)</button>
+          <button class="filter-btn">1 Sao (254)</button>
+          <button class="filter-btn">Có Bình Luận (4,9k)</button>
+          <button class="filter-btn">Có Hình Ảnh / Video (2k)</button>
+        </div>
+      </div>
+      
+      <div class="review-list">
+        <div class="review-item">
+          <div class="reviewer-info">
+            <img class="avatar" [src]="review.UserAvatar" alt="User avatar">
+            <div class="reviewer-details">
+              <div class="reviewer-name">{{ review.UserName }}</div>
+              <div class="review-rating">
+                <span class="star-rating">★★★★★</span>
+              </div>
+              <div class="review-date">{{ review.Date }} | Phân loại hàng: {{ review.ProductVariant }}</div>
+            </div>
+          </div>
+          
+          <div class="review-content">
+            <div class="review-attributes">
+              <div class="attribute">
+                <span class="attribute-label">Công dụng:</span>
+                <span class="attribute-value">{{ review.Purpose }}</span>
+              </div>
+              <div class="attribute">
+                <span class="attribute-label">Đối tượng sử dụng:</span>
+                <span class="attribute-value">{{ review.TargetUser }}</span>
+              </div>
+            </div>
+            
+            <div class="review-text">{{ review.Comment }}</div>
+            
+            <div class="review-images">
+              <div class="image-gallery">
+                <div class="review-image" *ngFor="let image of review.Images">
+                  <img [src]="image" alt="Review image">
+                </div>
+              </div>
+            </div>
+            
+            <div class="review-actions">
+              <button class="like-btn">
+                <span class="like-icon">👍</span>
+                <span class="like-count">{{ review.Likes }}</span>
+              </button>
+              <button class="more-options-btn">⋮</button>
+            </div>
+          </div>
+        </div>
+        
+        Additional reviews would be rendered here with *ngFor -->
+        <div class="product-container">
+          <h1>{{ product?.ProductName }}</h1>
+          <p>{{ product?.Description }}</p>
+        
+          <h2>ĐÁNH GIÁ SẢN PHẨM</h2>
+          <div *ngIf="reviews.length > 0; else noReviews">
+            <div class="review-item" *ngFor="let review of reviews">
+              <div class="review-header">
+                <span class="star-rating">★★★★★</span>
+                <span>{{ review.Rating }}/5</span>
+                <span class="review-date">{{ review.CreatedAt | date: 'dd/MM/yyyy' }}</span>
+              </div>
+              <p>{{ review.Comment }}</p>
+            </div>
+          </div>
+          
+          <ng-template #noReviews>
+            <p>Chưa có đánh giá nào.</p>
+          </ng-template>
+        </div>
+        
+    <div class="product-container">
+      <div class="relevant-products">
+        <h2 class="product-title">Relevant products :</h2>       
+        <div class="product-grid">
+          <div class="product-card" *ngFor="let f of topStockProducts">
+            <img class="product-image" *ngIf="f.Images?.length > 0" [src]="f.Images[0]" alt="Product Image" width="200" height="200" style="cursor: pointer;"
+            (click)="viewDetail(f)">
+            <h3 class="product-name">{{ f.ProductName }}</h3>
+            <p class="product-price">{{ f.Price | number:'1.0-0' }} VND</p>
+          </div>
+          
+          <div class="see-more" [routerLink]="'/sanpham'">
+            <div class="see-more-icon">▶</div>
+            <span>You want to see more...</span>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
 </body>
 </html>

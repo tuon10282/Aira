@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ProductsService } from '../products.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -29,9 +29,11 @@ export class ProductComponent implements OnInit {
     this.router.navigate(['/view-product-detail', product._id]);
   }
   
+  
 
   addToCart(product: any) {
     console.log("Added to cart:", product);
     // ✅ Bạn có thể thêm logic để đưa sản phẩm vào giỏ hàng ở đây
-  }
+  }  
+  
 }

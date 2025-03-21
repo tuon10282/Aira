@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog List Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="main-search">
+      <input type="text" placeholder="Search">
+      <button>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="top-section">
+      <h1 class="page-title">Blog list</h1>
+      
+      <div class="status-filter">
+        <div class="filter-text">Status</div>
+        <svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1L6 5L11 1" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="status-dropdown">
+          <div class="status-option published">Published</div>
+          <div class="status-option draft">Draft</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="blog-table-container">
+      <div class="table-search">
+        <div class="search-container">
+          <input type="text" placeholder="Search">
+          <button>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 40px"></th>
+            <th style="width: 200px">Title</th>
+            <th style="width: 120px">Author</th>
+            <th style="width: 100px">Category</th>
+            <th style="width: 140px">Last Modified</th>
+            <th style="width: 100px">Status</th>
+            <th style="width: 80px">Views</th>
+            <th style="width: 80px">Likes</th>
+            <th style="width: 80px">Comment</th>
+            <th style="width: 40px"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="trash-icon">
+              <div class="delete-icon"><i class="fa-solid fa-trash-can"></i></div>
+            </td>
+            <td>Why Scented Candles<br>Make the Perfect Gift</td>
+            <td>Nguyen Van A</td>
+            <td>Gift Ideas</td>
+            <td>Jan 12, 12:23 pm</td>
+            <td class="status-published">Published</td>
+            <td>1252</td>
+            <td>608</td>
+            <td>156</td>
+            <td class="actions-menu">⋮
+              <div class="actions-dropdown">
+                <div class="action-option">See more detail</div>
+                <div class="action-option">Edit</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="trash-icon">
+              <div class="delete-icon"><i class="fa-solid fa-trash-can"></i></div>
+            </td>
+            <td>Top 10 Candle Scents<br>for Relaxation</td>
+            <td>Vu Thi B</td>
+            <td>Lifestyle</td>
+            <td>May 01, 01:13 pm</td>
+            <td class="status-draft">Draft</td>
+            <td>980</td>
+            <td>450</td>
+            <td>78</td>
+            <td class="actions-menu">⋮
+              <div class="actions-dropdown">
+                <div class="action-option">See more detail</div>
+                <div class="action-option">Edit</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="trash-icon">
+              <div class="delete-icon"><i class="fa-solid fa-trash-can"></i></div>
+            </td>
+            <td>The History of<br>Scented Candles</td>
+            <td>Vo Van C</td>
+            <td>Knowledge</td>
+            <td>Sep 20, 09:08 am</td>
+            <td class="status-published">Published</td>
+            <td>204</td>
+            <td>134</td>
+            <td>15</td>
+            <td class="actions-menu">⋮
+              <div class="actions-dropdown">
+                <div class="action-option">See more detail</div>
+                <div class="action-option">Edit</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="trash-icon">
+              <div class="delete-icon"><i class="fa-solid fa-trash-can"></i></div>
+            </td>
+            <td>Best Selling Candles<br>in 2024</td>
+            <td>Le Thi D</td>
+            <td>Reviews</td>
+            <td>Sep 20, 09:08 am</td>
+            <td class="status-published">Published</td>
+            <td>2307</td>
+            <td>1697</td>
+            <td>259</td>
+            <td class="actions-menu">⋮
+              <div class="actions-dropdown">
+                <div class="action-option">See more detail</div>
+                <div class="action-option">Edit</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="trash-icon">
+              <div class="delete-icon"><i class="fa-solid fa-trash-can"></i></div>
+            </td>
+            <td>Common Mistakes When<br>Using Scented Candles</td>
+            <td>Trinh Van E</td>
+            <td>Knowledge</td>
+            <td>Sep 20, 09:08 am</td>
+            <td class="status-draft">Draft</td>
+            <td>986</td>
+            <td>358</td>
+            <td>184</td>
+            <td class="actions-menu">⋮
+              <div class="actions-dropdown">
+                <div class="action-option">See more detail</div>
+                <div class="action-option">Edit</div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="pagination">
+      <div class="pagination-info">Showing 1 to 5 of 100 entries</div>
+      <div class="pagination-controls">
+        <div class="pagination-button previous">Previous</div>
+        <div class="pagination-button active">1</div>
+        <div class="pagination-button">2</div>
+        <div class="pagination-button">3</div>
+        <div class="pagination-button next">Next</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,3 +1,4 @@
+<!-- header.component.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,9 +12,33 @@
   <header class="header">
     <div class="top-row">
       <div class="search-container">
-        <input type="text" placeholder="Search..." class="search-input">
-        <span class="material-icons search-icon">search</span>
+        <h2>Tìm kiếm sản phẩm</h2>
+        <div class="search-form">
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            placeholder="Nhập từ khóa tìm kiếm..."
+            (keyup.enter)="search()"
+          >
+          <button (click)="search()">Tìm kiếm</button>
+        </div>
+        
+        <div *ngIf="loading" class="loading">Đang tìm kiếm...</div>
+        
+        <div *ngIf="products.length === 0 && !loading" class="no-results">
+          Không tìm thấy sản phẩm
+        </div>
+        
+        <div class="products-list">
+          <div *ngFor="let product of products" class="product-card">
+            <h3>{{ product.ProductName }}</h3>
+            <p>{{ product.Description }}</p>
+            <p *ngIf="product.Price"><strong>Giá:</strong> {{ product.Price | currency:'VND' }}</p>
+            <!-- Hiển thị các trường khác nếu có -->
+          </div>
+        </div>
       </div>
+      
       <div class="logo"><a [routerLink]="'/home'">AIRA</a></div>
       <div class="icons">
         <div class="user-auth">
@@ -34,7 +59,7 @@
     </div>
     <nav class="nav-menu">
       <a [routerLink]="'/sanpham'">PRODUCTS</a>
-      <a href="#">CUSTOMIZE</a>
+      <a href="#">BLOG</a>
       <a [routerLink]="'/gioithieu'">ABOUT US</a>
       <a [routerLink]="'/lienhe'">CONTACT</a>
     </nav>
