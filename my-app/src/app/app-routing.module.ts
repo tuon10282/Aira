@@ -15,9 +15,11 @@ import { AuthGuard } from './auth.guard';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BlogComponent } from './blog/blog.component';
+import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent,canActivate: [AuthGuard] }, // Trang chủ
+  { path: 'order-confirmation/:orderId', component: OrderConfirmationComponent },
   { path: 'home', component: HomeComponent }, // Trang chủ
   { path: 'register', component: RegisterComponent },
   { path: 'sanpham', component: ProductComponent }, // Trang danh sách sản phẩm
@@ -31,6 +33,7 @@ const routes: Routes = [
   { path: 'blog', component: BlogComponent },
   { path: 'error', component: ErrorComponent }, // ✅ Route cho trang lỗi
   { path: '**', redirectTo: 'error' }, // ✅ Chuyển hướng đến trang lỗi nếu route không hợp lệ
+  
  
   // {path:'quenmatkhau',component:#},
   ];  

@@ -23,6 +23,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BlogComponent } from './blog/blog.component';
+import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { BlogComponent } from './blog/blog.component';
     ProductComponent,
     CheckoutComponent,
     HeaderComponent,
-    ProfileComponent
+    ProfileComponent,
+    OrderConfirmationComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

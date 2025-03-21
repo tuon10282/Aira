@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProductsService } from '../products.service';
 import { FormsModule } from '@angular/forms';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,7 @@ import { FormsModule } from '@angular/forms';
 export class HeaderComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   currentUser: Users | null = null;
-  
+  cartCount = 0;
   // Properties for search functionality
   searchTerm: string = '';
   loading: boolean = false;
@@ -26,10 +27,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   
   private authSubscription: Subscription | undefined;
   private userSubscription: Subscription | undefined;
+  private cartSubscription: Subscription | undefined;
   
   constructor(
     private authService: AuthService,
-    private productService: ProductsService
+    private productService: ProductsService,
+    private cartService: CartService
   ) {}
   
   ngOnInit() {
@@ -44,6 +47,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.currentUser = user as Users;
       }
     );
+    this.cartSubscription = this.cartService.cartCount$.subscribe(
+      count => {
+        this.cartCount = count;
+      }
+    );
   }
   
   ngOnDestroy() {
@@ -53,6 +61,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
     }
+    if (this.cartSubscription) this.cartSubscription.unsubscribe();
   }
   
   search(): void {

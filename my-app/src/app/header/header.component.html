@@ -54,8 +54,11 @@
         </div>
         <!-- Added person icon with link to profile -->
         <a [routerLink]="'/profile'"><span class="material-icons">person</span></a>
-        <a [routerLink]="'/giohang'"><span class="material-icons">shopping_cart</span></a>
-      </div>
+        <a routerLink="/giohang">
+          <span class="material-icons">shopping_cart</span>
+          <span *ngIf="cartCount > 0" class="cart-badge">{{ cartCount }}</span>
+        </a>
+    </div>
     </div>
     <nav class="nav-menu">
       <a [routerLink]="'/sanpham'">PRODUCTS</a>

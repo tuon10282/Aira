@@ -1,49 +1,76 @@
 <div class="cart">
     <h1 style="text-align: center;">CART</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>PRODUCT</th>
-                <th>UNIT PRICE</th>
-                <th>QUANTITY</th>
-                <th>TOTAL</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of cart; let i = index">
-                <td>{{ item.name }}</td>
-                <td>${{ item.price.toFixed(2) }}</td>
-                <td>
-                    <button class="quantity-btn" (click)="changeQuantity(i, -1)">-</button>
-                    {{ item.quantity }}
-                    <button class="quantity-btn" (click)="changeQuantity(i, 1)">+</button>
-                </td>
-                <td>${{ (item.price * item.quantity).toFixed(2) }}</td>
-                <td><button class="remove-btn" (click)="removeItem(i)">×</button></td>
-            </tr>
-        </tbody>
-    </table>
 
-    <div class="voucher-container">
-        <div class="left">
-            <input type="text" placeholder="Voucher code">
-            <button (click)="redeemVoucher()">Redeem</button>
-        </div>
-        <button (click)="updateCart()">Update Cart</button>
+    <div *ngIf="loading" class="loading">
+        <p>Đang tải giỏ hàng...</p>
     </div>
 
-    <div class="cart-summary">
-        <div></div>
-        <div class="summary">
-            <p>Subtotal: ${{ subtotal.toFixed(2) }}</p>
-            <p>Shipping fee: ${{ shippingFee }}</p>
-            <p>Coupon: No</p>
-            <p style="font-weight: bold;">TOTAL: ${{ total.toFixed(2) }}</p>
-            <hr>
-            <a routerLink="/thanhtoan">
-                <button class="checkout-btn">Check out</button>
-            </a>
+    <div *ngIf="error" class="error-message">
+        <p>{{ error }}</p>
+        <button (click)="loadCartDetails()">Thử lại</button>
+    </div>
+
+    <div *ngIf="!loading && !error">
+        <div *ngIf="cartItems.length === 0" class="empty-cart">
+            <p>Giỏ hàng của bạn đang trống</p>
+            <a routerLink="/products">Tiếp tục mua sắm</a>
+        </div>
+
+        <table *ngIf="cartItems.length > 0">
+            <thead>
+                <tr>
+                    <th>PRODUCT</th>
+                    <th>UNIT PRICE</th>
+                    <th>DISCOUNT</th>
+                    <th>QUANTITY</th>
+                    <th>TOTAL</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of cartItems">
+                    <td>
+                        <div class="product-info">
+                            <div class="product-image">
+                                <img [src]="item.image" alt="{{ item.name }}">
+                            </div>
+                            <div class="product-details">
+                                <h4 class="product-name">{{ item.name }}</h4>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="price-column">
+                        <span class="final-price">${{ item.final_price | number:'1.0-0' }}</span>
+                        <span *ngIf="item.discount > 0" class="original-price">{{ item.price | number:'1.0-0' }} VND</span>
+                    </td>
+                    <td class="discount-column">
+                        <span *ngIf="item.discount > 0" class="discount-tag">-{{ item.discount }}%</span>
+                    </td>
+                    <td>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" (click)="changeQuantity(item.product_id, -1)">-</button>
+                            <span class="quantity">{{ item.quantity }}</span>
+                            <button class="quantity-btn" (click)="changeQuantity(item.product_id, 1)">+</button>
+                        </div>
+                    </td>
+                    <td>${{ (item.final_price * item.quantity)| number:'1.0-0' }}</td>
+                    <td><button class="remove-btn" (click)="removeItem(item.product_id)">×</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div *ngIf="cartItems.length > 0" class="voucher-container">
+
+
+        <div *ngIf="cartItems.length > 0" class="cart-summary">
+            <div></div>
+            <div class="summary">
+                <p>Subtotal: ${{ subtotal | number:'1.0-0' }}</p>
+                <p>Coupon: No</p>
+                <p style="font-weight: bold;">TOTAL: ${{ total | number:'1.0-0' }}</p>
+                <hr>
+                <button class="checkout-btn" (click)="checkout()">Check out</button>
+            </div>
         </div>
     </div>
 </div>

@@ -1,0 +1,112 @@
+<div class="confirmation-container">
+    <div *ngIf="loading" class="loading">
+      <p>Loading order details...</p>
+    </div>
+  
+    <div *ngIf="error" class="error-message">
+      <p>{{ error }}</p>
+    </div>
+  
+    <div *ngIf="!loading && !error && orderDetails" class="order-confirmed">
+      <div class="success-message">
+        <h1>Order Confirmed!</h1>
+        <p>Thank you for your order. We've received your purchase request.</p>
+        <p>Order ID: <strong>{{ orderId }}</strong></p>
+      </div>
+  
+      <div class="order-details">
+        <h2>Order Details</h2>
+  
+        <div class="detail-section">
+          <h3>Shipping Information</h3>
+          <div class="detail-item">
+            <span>Full Name:</span>
+            <span>{{ orderDetails.shippingInfo.fullName }}</span>
+          </div>
+          <div class="detail-item">
+            <span>Email:</span>
+            <span>{{ orderDetails.shippingInfo.email }}</span>
+          </div>
+          <div class="detail-item">
+            <span>Phone Number:</span>
+            <span>{{ orderDetails.shippingInfo.phoneNumber }}</span>
+          </div>
+          <div class="detail-item">
+            <span>Delivery Address:</span>
+            <span>{{ orderDetails.shippingInfo.deliveryAddress }}</span>
+          </div>
+          <div class="detail-item">
+            <span>Shipping Method:</span>
+            <span>{{ orderDetails.shippingInfo.shippingMethod }}</span>
+          </div>
+        </div>
+  
+        <div class="detail-section">
+          <h3>Payment Information</h3>
+          <div class="detail-item">
+            <span>Payment Method:</span>
+            <span>{{ orderDetails.paymentMethod }}</span>
+          </div>
+  
+          <div *ngIf="orderDetails.paymentMethod === 'bank'" class="bank-details">
+            <h4>Bank Transfer Details</h4>
+            <p>Please transfer the payment to this account:</p>
+            <div class="bank-info">
+              <span>Bank:</span> <strong>Vietcombank</strong>
+            </div>
+            <div class="bank-info">
+              <span>Account number:</span> <strong>123456789</strong>
+            </div>
+            <div class="bank-info">
+              <span>Account Holder:</span> <strong>AIRA Joint Stock Company</strong>
+            </div>
+            <div class="bank-info">
+              <span>Transfer Details:</span> <strong>{{ orderDetails.shippingInfo.fullName }}_{{
+                orderDetails.shippingInfo.phoneNumber }}</strong>
+            </div>
+          </div>
+        </div>
+  
+        <div class="detail-section">
+          <h3>Order Summary</h3>
+  
+          <div class="product-list">
+            <div *ngFor="let product of orderDetails.orderSummary.products" class="product-item">
+              <img [src]="product.image" alt="{{ product.name }}" class="product-image">
+              <div class="product-info">
+                <div class="product-title">{{ product.name }}</div>
+                <div class="product-quantity">Quantity: {{ product.quantity }}</div>
+                <div class="product-price">{{ formatCurrency(product.price) }}</div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="summary-totals">
+            <div class="summary-line">
+              <span>Subtotal:</span>
+              <span>{{ formatCurrency(orderDetails.orderSummary.subtotal) }}</span>
+            </div>
+  
+            <div *ngIf="orderDetails.orderSummary.discountAmount > 0" class="summary-line discount-line">
+              <span>Discount ({{ orderDetails.orderSummary.discountCode }}):</span>
+              <span>-{{ formatCurrency(orderDetails.orderSummary.discountAmount) }}</span>
+            </div>
+  
+            <div class="summary-line">
+              <span>Shipping Fee:</span>
+              <span>{{ formatCurrency(orderDetails.orderSummary.shippingFee) }}</span>
+            </div>
+  
+            <div class="total-line">
+              <span>Total:</span>
+              <span>{{ formatCurrency(orderDetails.orderSummary.total) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="actions">
+        <button routerLink="/sanpham" class="continue-shopping">Continue Shopping</button>
+      </div>
+    </div>
+  </div>
