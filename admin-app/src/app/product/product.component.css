@@ -226,8 +226,17 @@
     height: 35px;
     background: #ccc;
     border-radius: 5px;
+    overflow: hidden; /* Add this to prevent image from spilling out */
+    display: flex; /* Add this for better image centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
   }
   
+  .product-image img {
+    width: 100%; /* Make image fill the container */
+    height: 100%; /* Make image fill the container */
+    object-fit: cover; /* Maintain aspect ratio and cover container */
+  }  
   .status {
     font-weight: 500;
     font-size: 13px;

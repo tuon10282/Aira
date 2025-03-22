@@ -1,0 +1,27 @@
+<div class="search-results-container">
+    <h2>Kết quả tìm kiếm cho: "{{ searchTerm }}"</h2>
+    
+    <div *ngIf="loading" class="loading">Đang tìm kiếm...</div>
+    
+    <div *ngIf="products.length === 0 && !loading" class="no-results">
+      Không tìm thấy sản phẩm phù hợp với "{{ searchTerm }}"
+    </div>
+    
+    <div class="products-list">
+      <div *ngFor="let product of products" 
+           class="product-card"
+           [class.discounted]="product.Discount"
+           [attr.data-discount]="product.Discount ? product.Discount + '%' : null">
+        <img [src]="product.Images && product.Images.length > 0 ? product.Images[0] : 'assets/placeholder.jpg'"
+             alt="{{ product.ProductName }}">
+        <h3>{{ product.ProductName }}</h3>
+        <p class="product-description">{{ product.Description }}</p>
+        <p class="product-price">
+          {{ formatCurrency(product.Price) }}
+          <span *ngIf="product.oldPrice && product.Price < product.oldPrice" 
+                class="original-price">{{ formatCurrency(product.oldPrice) }}</span>
+        </p>
+        <button class="view-details" [routerLink]="['/sanpham', product._id]">Xem chi tiết</button>
+      </div>
+    </div>
+  </div>

@@ -45,56 +45,32 @@
             <th style="width: 50px;">Image</th>
             <th>Product Name</th>
             <th>Categories</th>
-            <th>Status</th>
+            <th>StockQuantity</th>
             <th>Price</th>
             <th>Create at</th>
           </tr>
         </thead>
         <tbody>
-          <tr data-id="1">
-            <td><div class="delete-icon"><i class="fa-solid fa-trash-can"></i></div></td>
-            <td><div class="product-image"></div></td>
-            <td>Matcha Latte Scented Candle</td>
-            <td>Scented Candle Type 1</td>
-            <td><div class="status active">Active</div></td>
-            <td>95,000 VND</td>
-            <td>Jan 12, 12:23 pm</td>
-          </tr>
-          <tr data-id="2">
-            <td><div class="delete-icon"><i class="fa-solid fa-trash-can"></i></div></td>
-            <td><div class="product-image"></div></td>
-            <td>Flamingo Scented Candle</td>
-            <td>Scented Candle Type 2</td>
-            <td><div class="status draft">Draft</div></td>
-            <td>85,000 VND</td>
-            <td>May 01, 01:13 pm</td>
-          </tr>
-          <tr data-id="3">
-            <td><div class="delete-icon"><i class="fa-solid fa-trash-can"></i></div></td>
-            <td><div class="product-image"></div></td>
-            <td>Blue Shell Scented Candle</td>
-            <td>Scented Candle Type 3</td>
-            <td><div class="status active">Active</div></td>
-            <td>87,000 VND</td>
-            <td>Sep 20, 09:08 am</td>
-          </tr>
-          <tr data-id="4">
-            <td><div class="delete-icon"><i class="fa-solid fa-trash-can"></i></div></td>
-            <td><div class="product-image"></div></td>
-            <td>Lavender Heart Scented Candle</td>
-            <td>Scented Candle Type 4</td>
-            <td><div class="status deactive">Deactive</div></td>
-            <td>75,000 VND</td>
-            <td>Sep 20, 09:08 am</td>
-          </tr>
-          <tr data-id="5">
-            <td><div class="delete-icon"><i class="fa-solid fa-trash-can"></i></div></td>
-            <td><div class="product-image"></div></td>
-            <td>Rosy Candle</td>
-            <td>Scented Candle Type 1</td>
-            <td><div class="status draft">Draft</div></td>
-            <td>95,000 VND</td>
-            <td>Sep 20, 09:08 am</td>
+          <tr *ngFor="let f of products" [attr.data-id]="f.id">
+            <td>
+              <div class="delete-icon">
+                <i class="fa-solid fa-trash-can"></i>
+              </div>
+            </td>
+            <td>
+              <div class="product-image">
+                <img *ngIf="f.Images?.length > 0" [src]="f.Images[0]" />
+              </div>
+            </td>
+            <td>{{ f.ProductName }}</td>
+            <td>{{ f.CategoryID }}</td>
+            <td>
+              <div class="status" [ngClass]="{ 'active': f.status === 'Active', 'inactive': f.status !== 'Active' }">
+                {{ f.StockQuantity }}
+              </div>
+            </td>
+            <td>{{ f.Price | currency:'VND' }}</td>
+            <td>{{ f.CreatedAt | date:'MMM d, h:mm a' }}</td>
           </tr>
         </tbody>
       </table>

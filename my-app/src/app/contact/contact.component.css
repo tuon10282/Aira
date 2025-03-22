@@ -34,6 +34,18 @@ body {
     border-radius: 0px;
 }
 
+.map-container {
+    width: 40%;
+    height: 600px;
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    border-radius: 10px;
+    z-index: 10;
+}
+
+
 /* Thông tin liên hệ */
 h2 {
     font-family: 'Lora', serif;

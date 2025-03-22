@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    height: 100vh; /* Chiều cao toàn màn hình */
+}
+
+.panel {
+    width: 16%;
+    background-color: #f4f4f4;
+    border-right: 1px solid #ddd;
+    height: 100vh; /* Đảm bảo chiều cao bằng với .content */
+}
+
+.content {
+    flex-grow: 1;
+    padding: 10px;
+    height: 100vh; /* Đảm bảo chiều cao bằng với .panel */
+    overflow-y: auto; /* Thêm scroll nếu nội dung dài */
+}

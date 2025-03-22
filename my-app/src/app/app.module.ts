@@ -24,6 +24,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BlogComponent } from './blog/blog.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { OrderConfirmationComponent } from './order-confirmation/order-confirmat
     CheckoutComponent,
     HeaderComponent,
     ProfileComponent,
-    OrderConfirmationComponent
+    OrderConfirmationComponent,
+    SearchResultsComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

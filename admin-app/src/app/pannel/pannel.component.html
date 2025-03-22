@@ -18,43 +18,43 @@
         <nav>
             <ul>
                 <li>
-                    <button class="nav-button active">
+                    <button class="nav-button" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                         <span class="material-icons">dashboard</span>
                         <span>Dashboard</span>
                     </button>
                 </li>
                 <li>
-                    <button class="nav-button">
+                    <button class="nav-button" routerLink="/product" routerLinkActive="active">
                         <span class="material-icons">inventory_2</span>
                         <span>Products</span>
                     </button>
                 </li>
                 <li>
-                    <button class="nav-button">
+                    <button class="nav-button" routerLink="/customer" routerLinkActive="active">
                         <span class="material-icons">people</span>
                         <span>Customer</span>
                     </button>
                 </li>
                 <li>
-                    <button class="nav-button">
+                    <button class="nav-button" routerLink="/order" routerLinkActive="active">
                         <span class="material-icons">shopping_bag</span>
                         <span>Orders</span>
                     </button>
                 </li>
                 <li>
-                    <button class="nav-button">
+                    <button class="nav-button" routerLink="/category" routerLinkActive="active">
                         <span class="material-icons">category</span>
                         <span>Categories</span>
                     </button>
                 </li>
                 <li>
-                    <button class="nav-button">
+                    <button class="nav-button" routerLink="/feedback" routerLinkActive="active">
                         <span class="material-icons">chat</span>
                         <span>Feedback</span>
                     </button>
-                </li>
+                </li>                
             </ul>
         </nav>
-    </div>
+            </div>
 </body>
 </html>

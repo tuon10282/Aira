@@ -1,0 +1,156 @@
+/* Base styles for search results container */
+.search-results-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f6f3;
+  }
+  
+  /* Search results heading */
+  .search-results-container h2 {
+    font-size: 22px;
+    color: #8B645A;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(139, 100, 90, 0.2);
+  }
+  
+  /* Loading state */
+  .loading {
+    text-align: center;
+    font-size: 18px;
+    margin: 30px 0;
+    color: #8B645A;
+  }
+  
+  /* No results message */
+  .no-results {
+    text-align: center;
+    font-size: 16px;
+    margin: 30px 0;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    color: #666;
+  }
+  
+  /* Products grid layout */
+  .products-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    flex-grow: 1;
+    padding: 20px;
+  
+  }
+  
+  /* Product card styling */
+  .product-card {
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    position: relative;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Product image styling */
+  .product-card img {
+    width: 250px;
+    height: 280px; /* Reduced height */
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .product-card:hover img {
+    transform: scale(1.05);
+  }
+  
+  /* Product details */
+  .product-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 10px 15px 5px;
+    color: #333;
+  }
+  
+  .product-description {
+    font-size: 14px;
+    color: #666;
+    margin: 0 15px 10px;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2; /* Standard property for compatibility */
+    -webkit-box-orient: vertical;
+  }
+  
+  .product-price {
+    font-weight: 700;
+    font-size: 18px;
+    color: #333;
+    margin: 0 15px 15px;
+  }
+  
+  /* Button styling */
+  .view-details {
+    width: calc(100% - 30px);
+    margin: 0 15px 15px;
+    padding: 10px;
+    background-color: #8B645A;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .view-details:hover {
+    background-color: #75544C;
+  }
+  
+  /* Add discount tag - You can add this class dynamically in Angular */
+  .product-card.discounted::before {
+    content: attr(data-discount);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #f44336;
+    color: white;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 1;
+  }
+  
+  /* Responsive layout */
+  @media (max-width: 900px) {
+    .products-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .products-list {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Additional price styling for original price */
+  .original-price {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 14px;
+    margin-left: 8px;
+  }

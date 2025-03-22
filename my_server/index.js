@@ -31,6 +31,7 @@ productsCollection = database.collection("Products");
 reviewsCollection = database.collection("Reviews");
 cartCollection = database.collection("Cart");
 checkoutCollection = database.collection("Checkout");
+feedbackCollection = database.collection("Feedback")
 
 
 // Get all users
@@ -760,5 +761,20 @@ app.get("/orders/:orderId", verifyToken, async (req, res) => {
       error: error.message
     });
   }
+});
+
+// API feedbacks 
+app.get("/feedbacks", async (req, res) => {
+  const result = await feedbackCollection.find({}).toArray();
+  res.send(result);
+})
+
+app.post("/feedbacks", async (req, res) => {
+  const feedback = req.body;
+  if (!feedback.name || !feedback.email || !feedback.message) {
+      return res.status(400).send({ error: "Missing required fields" });
+  }
+  await feedbackCollection.insertOne(feedback);
+  res.send(feedback);
 });
 

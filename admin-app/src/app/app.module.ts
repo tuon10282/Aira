@@ -11,22 +11,26 @@ import { OrderComponent } from './order/order.component';
 import { CategoryComponent } from './category/category.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { BlogComponent } from './blog/blog.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AddProductComponent } from './add-product/add-product.component'; // Import HttpClientModule
 
 @NgModule({
   declarations: [
     AppComponent,
     PannelComponent,
     DashboardComponent,
-    ProductComponent,
     CustomersComponent,
     OrderComponent,
     CategoryComponent,
     FeedbackComponent,
-    BlogComponent
+    BlogComponent,
+    ProductComponent,
+    AddProductComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
