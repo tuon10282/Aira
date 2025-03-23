@@ -1,0 +1,172 @@
+<div class="blog-form-container">
+    <div class="header">
+      <h1>Update Blog</h1>
+      <div class="breadcrumb">
+        <a href="#">Dashboard</a> / 
+        <a href="#">Blogs</a> / 
+        <span>Update Blog</span>
+      </div>
+      <button class="btn-back"><a routerLink="/blogs">Back to Blogs</a></button>
+    </div>
+  
+    <div class="form-layout">
+      <div class="main-content">
+        <section class="form-section">
+          <h2>Blog Information</h2>
+          <div class="form-group">
+            <label for="Title">Blog Title</label>
+            <input type="text" id="Title" name="Title" placeholder="Blog Title" class="form-control" [(ngModel)]="blog.Title">
+          </div>
+  
+          <div class="form-row">
+            <div class="form-group">
+              <label for="Category">Blog Category</label>
+              <div class="select-wrapper">
+                <select 
+                  id="Category" 
+                  name="Category" 
+                  class="form-control"
+                  [(ngModel)]="blog.Category">                   
+                  <option value="" disabled>Blog Category</option>
+                  <option value="lifestyle">Lifestyle</option>
+                  <option value="product-guide">Product Guide</option>
+                  <option value="aromatherapy">Aromatherapy</option>
+                  <option value="news">News</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="Author">Author</label>
+              <div class="select-wrapper">
+                <select 
+                  id="Author" 
+                  name="Author" 
+                  class="form-control"
+                  [(ngModel)]="blog.Author">                   
+                  <option value="" disabled>Select Author</option>
+                  <option value="Ngọc">Ngọc</option>
+                  <option value="Tường">Tường</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="Tags">Tags</label>
+            <input 
+              type="text" 
+              id="Tags" 
+              name="Tags" 
+              placeholder="Enter tags separated by commas" 
+              class="form-control"
+              [(ngModel)]="blog.tagsInput"
+              (blur)="processTags()">
+          </div>
+          
+          <div class="tags-container" *ngIf="blog.Tags && blog.Tags.length > 0">
+            <span class="tag" *ngFor="let tag of blog.Tags">
+              {{tag}}
+              <button class="remove-tag" (click)="removeTag(tag)">×</button>
+            </span>
+          </div>
+        </section>
+  
+        <section class="form-section">
+          <h2>Current Image</h2>
+          <div class="current-image-container">
+            <img *ngIf="blog.Images" [src]="blog.Images" alt="Current Blog Image" class="current-image">
+            <p *ngIf="!blog.Images">No image available</p>
+          </div>
+          
+          <h2>Update Image</h2>
+          <div class="image-upload-container">
+            <div class="dropzone">
+              <span>Drop new file here to upload</span>
+              <input type="file" class="file-input"
+                name="blog_image" id="blog_image"
+                (change)="onFileSelected($event)">
+            </div>
+            <div class="image-preview-container">
+              <!-- Image preview will appear here -->
+            </div>
+          </div>
+        </section>
+  
+        <section class="form-section">
+          <h2>Blog Content</h2>
+          <div class="editor-container">
+            <!-- WYSIWYG Editor Component -->
+            <div class="wysiwyg-toolbar">
+              <button class="editor-btn" title="Bold"><i class="fas fa-bold"></i></button>
+              <button class="editor-btn" title="Italic"><i class="fas fa-italic"></i></button>
+              <button class="editor-btn" title="Underline"><i class="fas fa-underline"></i></button>
+              <button class="editor-btn" title="Heading"><i class="fas fa-heading"></i></button>
+              <button class="editor-btn" title="List"><i class="fas fa-list"></i></button>
+              <button class="editor-btn" title="Link"><i class="fas fa-link"></i></button>
+              <button class="editor-btn" title="Image"><i class="fas fa-image"></i></button>
+            </div>
+            <textarea 
+              id="Content" 
+              name="Content" 
+              class="editor-content" 
+              rows="10"
+              [(ngModel)]="blog.Content"
+            ></textarea>
+          </div>
+        </section>
+      </div>
+  
+      <div class="sidebar">
+        <section class="form-section">
+          <div class="form-group">
+            <label for="Status">Blog Status</label>
+            <div class="select-wrapper">
+              <select 
+                id="Status" 
+                name="Status" 
+                class="form-control"
+                [(ngModel)]="blog.Status">                   
+                <option value="" disabled>Select Status</option>
+                <option value="Draft">Draft</option>
+                <option value="Published">Published</option>
+                <option value="archived">Archived</option>
+              </select>
+            </div>
+          </div>
+  
+          <div class="stats-container" *ngIf="blog._id">
+            <div class="stat-item">
+              <span class="stat-label">Views</span>
+              <span class="stat-value">{{blog.Views || 0}}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Likes</span>
+              <span class="stat-value">{{blog.Likes || 0}}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Comments</span>
+              <span class="stat-value">{{blog.Comments.length || 0}}</span>
+            </div>
+          </div>
+        </section>
+  
+        <section class="form-section" *ngIf="blog._id">
+          <h2>Post Information</h2>
+          <div class="info-item">
+            <span class="info-label">Created</span>
+            <span class="info-value">{{blog.CreatedAt | date:'medium'}}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Last Updated</span>
+            <span class="info-value">{{blog.UpdatedAt | date:'medium'}}</span>
+          </div>
+        </section>
+  
+        <div *ngIf="errMessage" class="error-message">
+          {{ errMessage }}
+        </div>
+  
+        <button type="submit" class="btn-update" (click)="updateBlog()">Update Blog</button>
+      </div>
+    </div>
+  </div>

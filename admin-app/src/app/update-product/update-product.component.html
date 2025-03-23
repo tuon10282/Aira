@@ -1,0 +1,192 @@
+<div class="product-form-container">
+  <div class="header">
+    <h1>Update Product</h1>
+    <div class="breadcrumb">
+      <a href="#">Dashboard</a> / 
+      <a href="#">Products</a> / 
+      <span>Update Product</span>
+    </div>
+    <button class="btn-back"><a routerLink="/product">Back to Products</a></button>
+  </div>
+
+  <div class="form-layout">
+    <div class="main-content">
+      <section class="form-section">
+        <h2>Product Information</h2>
+        <div class="form-group">
+          <label for="ProductName">Product Name</label>
+          <input type="text" id="ProductName" name="ProductName" placeholder="Product Name" class="form-control" [(ngModel)]="product.ProductName">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="CategoryId">Product Category</label>
+            <div class="select-wrapper">
+              <select 
+                id="CategoryId" 
+                name="CategoryId" 
+                class="form-control"
+                [(ngModel)]="product.CategoryName">                   
+                <option value="" disabled>Product Category</option>
+                <option value="candles">Candles</option>
+                <option value="diffusers">Diffusers</option>
+                <option value="accessories">Accessories</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="Color">Color</label>
+            <input 
+              type="text" 
+              id="Color" 
+              name="Color" 
+              placeholder="Color" 
+              class="form-control"
+              [(ngModel)]="product.Color">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="Weight">Weight (g)</label>
+            <input 
+              type="number" 
+              id="Weight" 
+              name="Weight" 
+              placeholder="Weight" 
+              class="form-control"
+              [(ngModel)]="product.Weight">            
+          </div>
+          <div class="form-group">
+            <label for="BurningTime">Burning Time (hours)</label>
+            <input 
+              type="number" 
+              id="BurningTime" 
+              name="BurningTime" 
+              placeholder="Burning Time" 
+              class="form-control"
+              [(ngModel)]="product.BurningTime">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="Fragrance">Fragrance</label>
+          <input 
+            type="text" 
+            id="Fragrance" 
+            name="Fragrance" 
+            placeholder="Fragrance notes" 
+            class="form-control"
+            [(ngModel)]="product.Fragrance">
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Current Image</h2>
+        <div class="current-image-container">
+          <img *ngIf="product.Images && product.Images.length > 0" [src]="product.Images[0]" alt="Current Product Image" class="current-image">
+          <p *ngIf="!product.Images || product.Images.length === 0">No image available</p>
+        </div>
+        
+        <h2>Update Image</h2>
+        <div class="image-upload-container">
+          <div class="dropzone">
+            <span>Drop new file here to upload</span>
+            <input type="file" class="file-input"
+              name="product_image" id="product_image"
+              (change)="onFileSelected($event)">
+          </div>
+          <div class="image-preview-container">
+            <!-- Image preview will appear here -->
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Product Description</h2>
+        <div class="editor-container">
+          <textarea 
+            id="Description" 
+            name="Description" 
+            class="editor-content" 
+            rows="6"
+            [(ngModel)]="product.Description"
+          ></textarea>
+        </div>
+      </section>
+    </div>
+
+    <div class="sidebar">
+      <section class="form-section">
+        <div class="toggle-container">
+          <span>In Stock</span>
+          <label class="switch">
+            <input type="checkbox" id="availability" [(ngModel)]="product.StockQuantity">
+            <span class="slider round"></span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label for="SKU">Product SKU</label>
+          <input 
+            type="text" 
+            id="SKU" 
+            name="SKU" 
+            placeholder="Enter Product SKU" 
+            class="form-control"
+            [(ngModel)]="product.SKU">
+        </div>
+
+        <div class="form-group">
+          <label for="StockQuantity">Stock Quantity</label>
+          <input 
+            type="number" 
+            id="StockQuantity" 
+            name="StockQuantity" 
+            placeholder="Enter Product Quantity" 
+            class="form-control"
+            [(ngModel)]="product.StockQuantity">
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Product Price</h2>
+        <div class="form-group">
+          <label for="Price">Regular Price</label>
+          <div class="price-input">
+            <span class="currency">$</span>
+            <input 
+              type="number" 
+              id="Price" 
+              name="Price" 
+              placeholder="0.00" 
+              step="0.01" 
+              class="form-control"
+              [(ngModel)]="product.Price">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="oldPrice">Old Price</label>
+          <div class="price-input">
+            <span class="currency">$</span>
+            <input 
+              type="number" 
+              id="oldPrice" 
+              name="oldPrice" 
+              placeholder="0.00" 
+              step="0.01" 
+              class="form-control"
+              [(ngModel)]="product.oldPrice">                          
+          </div>
+        </div>
+      </section>
+
+      <div *ngIf="errMessage" class="error-message">
+        {{ errMessage }}
+      </div>
+
+      <button type="submit" class="btn-update" (click)="putProduct()">Update Product</button>
+    </div>
+  </div>
+</div>

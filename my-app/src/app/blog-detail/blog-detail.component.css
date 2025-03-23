@@ -1,0 +1,151 @@
+/* Main container styles - using container-fluid for full width */
+.blog-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0;
+  }
+  
+  .blog-content {
+    width: 100%;
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Image styling - fixed height and centered */
+  .product-image-container {
+    max-height: 500px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 768px;
+    margin: 0 auto;
+  }
+  
+  .product-image-container img {
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  /* Typography */
+  .product-title {
+    font-family: 'Times New Roman', serif;
+    font-size: 32px;
+    color: #5c4b3f;
+    margin-bottom: 20px;
+    font-weight: normal;
+    text-align: center;
+  }
+  
+  .section-title {
+    font-family: 'Times New Roman', serif;
+    font-size: 24px;
+    color: #5c4b3f;
+    font-weight: normal;
+    text-align: center;
+  }
+  
+  .description-text {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #555;
+    text-align: justify;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Category badge */
+  .category-badge {
+    background-color: #fadadd;
+    color: #000;
+    padding: 6px 12px;
+    font-size: 14px;
+    display: inline-block;
+  }
+  
+  /* Stats, author and tags */
+  .stats-line, .author-line, .tags-line {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+  }
+  
+  /* Divider */
+  .divider {
+    border-top: 1px solid #ddd;
+    width: 50%;
+    margin: 20px auto;
+  }
+  
+  /* Comments */
+  .comment-item {
+    margin-bottom: 15px;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+  }
+  
+  .comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  
+  .comment-date {
+    font-size: 12px;
+    color: #777;
+  }
+  
+  .comment-body {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* Back button */
+  .btn-back {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: #555;
+    padding: 8px 20px;
+    font-size: 14px;
+    transition: all 0.3s;
+    margin: 0 auto;
+    display: inline-block;
+  }
+  
+  .btn-back:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Center entire component on the page by adding margin to the parent */
+  app-blog-detail {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .product-title {
+      font-size: 28px;
+    }
+    
+    .section-title {
+      font-size: 22px;
+    }
+    
+    .description-text {
+      padding: 0 15px;
+    }
+    
+    .blog-content {
+      padding: 15px;
+    }
+  }

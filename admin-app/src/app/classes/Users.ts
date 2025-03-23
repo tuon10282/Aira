@@ -1,13 +1,10 @@
-export class Users {
+export class User {
     constructor(
+        public _id: string = "",
         public Name: string = "",
-        public Email: string = "", // Sửa kiểu dữ liệu thành string
-        public Password: string = ""
+        public Email: string = "",
+        public Password?: string, // Note the question mark to make it optional
+        public Phone?: string,  // Make optional to match interface
+        public Address?: string  // Make optional to match interface
     ) {}
 }
-export interface User {
-    Name: string;
-    Email: string;
-    Password: string; // Nếu không cần password, có thể bỏ đi
-  }
-  

@@ -60,4 +60,13 @@ export class AuthService {
     this.currentUserSubject.next(null);
     this.router.navigate(['/register']);
   }
+  // Add this method to your AuthService
+updateCurrentUser(user: Users) {
+  // Update the current user in the behavior subject
+  this.currentUserSubject.next(user);
+  
+  // Update local storage if needed
+  localStorage.setItem('currentUser', JSON.stringify(user));
+}
+
 }

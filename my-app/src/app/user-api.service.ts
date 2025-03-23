@@ -37,7 +37,17 @@ export class UserAPIService {
       catchError(this.handleError)
     );
   }
-
+// Method for updating user details
+updateUser(userId: string, userData: Partial<Users>): Observable<any> {
+  const headers = new HttpHeaders().set("Content-Type", "application/json;charset=utf-8");
+  
+  return this._http.put(`http://localhost:3002/updateusers/${userId}`, JSON.stringify(userData), {
+    headers: headers
+  }).pipe(
+    retry(3),
+    catchError(this.handleError)
+  );
+}
   private handleError(error: HttpErrorResponse) {
     let errorMessage = "Unknown error!";
     if (error.error instanceof ErrorEvent) {

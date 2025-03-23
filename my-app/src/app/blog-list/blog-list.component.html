@@ -1,0 +1,130 @@
+<!-- blog-list.component.html -->
+<div class="container">
+    <!-- Blog Header and Branding -->
+    <div class="blog-header">
+      <h1 class="blog-logo">AIRA LOVELY </h1>
+    </div>
+  
+    <!-- Search bar -->
+    <div class="search-container">
+      <input type="text" [(ngModel)]="searchQuery" placeholder="Search by category, tags, or keywords...">
+      <button (click)="search()">SEARCH</button>
+    </div>
+  
+    <!-- Featured categories quick links -->
+    <div class="categories-container">
+      <button class="category-btn" *ngFor="let category of featuredCategories" 
+              (click)="searchQuery = category; search()">
+        {{category}}
+      </button>
+    </div>
+  
+    <!-- Loading spinner -->
+    <div *ngIf="isLoading" class="d-flex justify-content-center my-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  
+    <!-- Error message -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Blog categories section -->
+    <div *ngIf="!isLoading">
+      <div *ngFor="let styleGroup of blogByCategory" class="category-section">
+        <!-- Blog category title -->
+        <h3 class="blog-heading">{{ styleGroup.name | uppercase }}</h3>
+  
+        <!-- Each category shows exactly 3 blog items per row -->
+        <div class="blog-grid">
+          <div class="blog-item" *ngFor="let blog of styleGroup.blogs.slice(0, 3)">
+            <div class="card clickable" (click)="viewDetails(blog._id)">
+              <div class="card-img-container">
+                <img [src]="blog.Images" class="card-img-top" alt="{{ blog.Title }}">
+                <div class="badge-container">
+                  <span class="badge">{{ blog.Category }}</span>
+                  <span class="badge">{{ formatDate(blog.Created_at) }}</span>
+                </div>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{ blog.Title }}</h5>
+                <div class="card-meta">
+                  <span><i class="fas fa-eye"></i> {{ blog.Views }} views</span>
+                  <span><i class="fas fa-heart"></i> {{ blog.Likes }} likes</span>
+                  <span><i class="fas fa-comment"></i> {{ blog.Comments.length }} comments</span>
+                </div>
+                <p class="card-text">{{ blog.Content | slice:0:100 }}...</p>
+                <a class="read-more">Read more <i class="fas fa-arrow-right ms-1"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- If there are more items in this category, display the next 3, and so on -->
+        <div class="blog-grid" *ngIf="styleGroup.blogs.length > 3">
+          <div class="blog-item" *ngFor="let blog of styleGroup.blogs.slice(3, 6)">
+            <div class="card clickable" (click)="viewDetails(blog._id)">
+              <div class="card-img-container">
+<img [src]="blog.Images" class="card-img-top" alt="{{ blog.Title }}">
+                <div class="badge-container">
+                  <span class="badge">{{ blog.Category }}</span>
+                  <span class="badge">{{ formatDate(blog.Created_at) }}</span>
+                </div>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{ blog.Title }}</h5>
+                <div class="card-meta">
+                  <span><i class="fas fa-eye"></i> {{ blog.Views }} views</span>
+                  <span><i class="fas fa-heart"></i> {{ blog.Likes }} likes</span>
+                  <span><i class="fas fa-comment"></i> {{ blog.Comments.length }} comments</span>
+                </div>
+                <p class="card-text">{{ blog.Content | slice:0:100 }}...</p>
+                <a class="read-more">Read more <i class="fas fa-arrow-right ms-1"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- And another row if needed -->
+        <div class="blog-grid" *ngIf="styleGroup.blogs.length > 6">
+          <div class="blog-item" *ngFor="let blog of styleGroup.blogs.slice(6, 9)">
+            <div class="card clickable" (click)="viewDetails(blog._id)">
+              <div class="card-img-container">
+                <img [src]="blog.Images" class="card-img-top" alt="{{ blog.Title }}">
+                <div class="badge-container">
+                  <span class="badge">{{ blog.Category }}</span>
+                  <span class="badge">{{ formatDate(blog.Created_at) }}</span>
+                </div>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{ blog.Title }}</h5>
+                <div class="card-meta">
+                  <span><i class="fas fa-eye"></i> {{ blog.Views }} views</span>
+                  <span><i class="fas fa-heart"></i> {{ blog.Likes }} likes</span>
+                  <span><i class="fas fa-comment"></i> {{ blog.Comments.length }} comments</span>
+                </div>
+                <p class="card-text">{{ blog.Content | slice:0:100 }}...</p>
+                <a class="read-more">Read more <i class="fas fa-arrow-right ms-1"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- View all link if more than 9 blogs in a category -->
+        <div class="text-center mt-3" *ngIf="styleGroup.blogs.length > 9">
+          <a class="btn btn-outline-dark" (click)="searchQuery = styleGroup.name; search()">
+            View all {{ styleGroup.blogs.length }} items in {{ styleGroup.name }}
+          </a>
+        </div>
+      </div>
+
+      <!-- Popular Tags Section -->
+      <div class="mt-4 mb-5">
+        <h3 class="blog-heading">POPULAR TAGS</h3>
+        <div class="d-flex flex-wrap">
+          <span *ngFor="let tag of popularTags" 
+                class="badge bg-light text-dark m-1 p-2" 
+                style="cursor: pointer;"
+                (click)="searchQuery = tag; search()">

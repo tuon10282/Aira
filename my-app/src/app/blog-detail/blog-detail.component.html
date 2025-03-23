@@ -1,0 +1,79 @@
+<div class="container-fluid blog-container">
+    <!-- Loading spinner -->
+    <div *ngIf="isLoading" class="d-flex justify-content-center my-5">
+        <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Error message -->
+    <div *ngIf="errorMessage" class="alert alert-danger text-center">
+        {{ errorMessage }}
+    </div>
+
+    <!-- Blog/Product details -->
+    <div *ngIf="blog && !isLoading" class="blog-content mx-auto text-center">
+        <!-- Full width image -->
+        <div class="product-image-container mb-4">
+            <img [src]="blog.Images" class="img-fluid w-100" alt="{{ blog.Title }}">
+        </div>
+
+        <!-- Content section -->
+        <div class="content-wrapper">
+            <!-- Title - centered -->
+            <h1 class="product-title">{{ blog.Title }}</h1>
+            
+            <!-- Category - centered -->
+            <div class="mb-3">
+                <span class="category-badge">{{ blog.Category }}</span>
+            </div>
+            
+            <!-- Stats and author - centered -->
+            <div class="stats-line mb-2">
+                {{ blog.Views }} views {{ blog.Likes }} likes
+            </div>
+            <div class="author-line mb-2">
+                {{ blog.Author }}
+            </div>
+            
+            <!-- Tags - centered -->
+            <div class="tags-line mb-4">
+                <ng-container *ngFor="let tag of blog.Tags">
+                    #{{ tag }} 
+                </ng-container>
+            </div>
+            
+            <!-- Divider - centered and shorter -->
+            <hr class="divider mx-auto mb-4">
+            
+            <!-- Product description section - title centered -->
+        
+            <!-- Description text can be either justified or left-aligned - using justify here -->
+            <div class="description-text mb-5">
+                {{ blog.Content }}
+            </div>
+            
+            <!-- Comments section - title centered -->
+            <div *ngIf="blog.Comments && blog.Comments.length > 0" class="mb-4">
+                <h2 class="section-title mb-3">Reviews</h2>
+                <!-- Individual comments are left-aligned for readability -->
+                <div class="comment-item mb-3 text-start" *ngFor="let comment of blog.Comments">
+                    <div class="comment-header mb-1">
+                        <strong>{{ comment.User_id }}</strong>
+                        <span class="comment-date">{{ comment.Created_at | date:'medium' }}</span>
+                    </div>
+                    <div class="comment-body">
+                        {{ comment.Comment }}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Back button - centered -->
+            <div class="text-center mt-5">
+                <button (click)="goBack()" class="btn btn-back">
+                    Back to Blogs
+</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@600&family=Montserrat:wght@400&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 body {
@@ -15,7 +17,9 @@ body {
   margin: 0 auto;
 }
 
-
+h1, h2, h3, h4, h5, h6, .section-title {
+  font-family: 'Lora', serif;
+}
 
 .search-input {
   padding: 10px 15px;
@@ -26,7 +30,6 @@ body {
 }
 
 .welcome-banner {
-  /* background-image: url('snapedit_1741836391455.jpeg'); */
   background-size: cover;
   background-position: center;
   border-radius: 12px;
@@ -63,7 +66,6 @@ body {
   font-size: 14px;
   margin-bottom: 15px;
   opacity: 0.9;
-  
 }
 
 .menu-btn {
@@ -103,41 +105,29 @@ body {
 
 .charts-row {
   display: flex;
-  gap: 15px;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
 .line-chart-container {
-  flex: 2;
-  background-color: white;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-}
-
-.pie-chart-container {
   flex: 1;
   background-color: white;
   border-radius: 10px;
-  padding: 15px;
+  padding: 20px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  max-width: 100%;
 }
 
-.section-title {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 15px;
+.line-chart {
+  height: 300px;
+  width: 100%;
+  position: relative;
 }
 
 .chart-subtitle {
   font-size: 14px;
   color: gray;
   margin-bottom: 10px;
-}
-
-.line-chart {
-  height: 200px;
-  position: relative;
 }
 
 .pie-chart {
@@ -165,7 +155,7 @@ body {
   margin-bottom: 20px;
 }
 
-.sales-overview {
+.sales-overview, .notifications {
   flex: 1;
   background-color: white;
   border-radius: 10px;
@@ -174,11 +164,6 @@ body {
 }
 
 .notifications {
-  flex: 1;
-  background-color: white;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -341,4 +326,36 @@ td {
 
 .chart-legend {
   margin-top: 10px;
+}
+
+.stats-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  color: #777;
+  font-size: 14px;
+}
+
+.stat-change {
+  color: #4CAF50;
+  font-size: 12px;
+  margin-top: 5px;
 }

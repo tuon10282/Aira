@@ -13,24 +13,39 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { BlogComponent } from './blog/blog.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddProductComponent } from './add-product/add-product.component'; // Import HttpClientModule
+import { FormsModule } from '@angular/forms';
+import { UpdateProductComponent } from './update-product/update-product.component';
+import { UpdateOrderComponent } from './update-order/update-order.component';
+import { BlogUpdateComponent } from './blog-update/blog-update.component';
+import { RouterModule, Routes } from '@angular/router';
+import { AddBlogComponent } from './add-blog/add-blog.component';
+import { CustomerUpdateComponent } from './customer-update/customer-update.component'; // Import RouterModule and Routes
 
 @NgModule({
   declarations: [
     AppComponent,
     PannelComponent,
-    DashboardComponent,
     CustomersComponent,
     OrderComponent,
     CategoryComponent,
-    FeedbackComponent,
-    BlogComponent,
     ProductComponent,
     AddProductComponent,
+    UpdateProductComponent,
+    UpdateOrderComponent,
+    BlogUpdateComponent,
+    BlogComponent,
+    AddBlogComponent,
+    CustomerUpdateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    FeedbackComponent,
+    DashboardComponent
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]

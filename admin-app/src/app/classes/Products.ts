@@ -3,7 +3,7 @@ export class Product {
     public _id: string = "",
     public ProductName: string = "",
     public Description: string = "",
-    public CategoryId: string = "", 
+    public CategoryName: string = "", 
     public Fragrance: string = "",
     public Weight: number = 0,
     public BurningTime: number = 0,

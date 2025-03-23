@@ -22,9 +22,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ProfileComponent } from './profile/profile.component';
-import { BlogComponent } from './blog/blog.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { BlogListComponent } from './blog-list/blog-list.component';
+import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     RegisterComponent,
     ErrorComponent,
     FeedbackComponent,
-    BlogComponent,
+    BlogListComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +54,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     ProfileComponent,
     OrderConfirmationComponent,
     SearchResultsComponent,
+    BlogDetailComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

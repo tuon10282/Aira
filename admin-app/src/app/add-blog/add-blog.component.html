@@ -1,0 +1,147 @@
+<div class="blog-form-container">
+    <div class="header">
+      <h1>Add New Blog Post</h1>
+      <div class="breadcrumb">
+        <a href="#">Dashboard</a> / 
+        <a href="#">Blogs</a> / 
+        <span>Add New Blog Post</span>
+      </div>
+      <button class="btn-back"><a routerLink="/blog">Back to Blogs</a></button>
+    </div>
+  
+    <div class="form-layout">
+      <div class="main-content">
+        <section class="form-section">
+          <h2>Blog Information</h2>
+          <div class="form-group">
+            <label for="Title">Blog Title</label>
+            <input type="text" id="Title" name="Title" placeholder="Blog Title" class="form-control" #title="ngModel" [(ngModel)]="blog.Title">
+          </div>
+  
+          <div class="form-row">
+            <div class="form-group">
+              <label for="Category">Blog Category</label>
+              <div class="select-wrapper">
+                <select 
+                  id="Category" 
+                  name="Category" 
+                  class="form-control"
+                  #category="ngModel"
+                  [(ngModel)]="blog.Category">                   
+                  <option value="" disabled selected>Select Category</option>
+                  <option value="news">News</option>
+                  <option value="tutorials">Tutorials</option>
+                  <option value="lifestyle">Lifestyle</option>
+                  <option value="reviews">Reviews</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="Author">Author</label>
+              <input 
+                type="text" 
+                id="Author" 
+                name="Author" 
+                placeholder="Author Name" 
+                class="form-control"
+                #author="ngModel"
+                [(ngModel)]="blog.Author">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="Tags">Tags (comma separated)</label>
+            <input 
+              type="text" 
+              id="Tags" 
+              name="Tags" 
+              placeholder="e.g., candles, fragrance, home decor" 
+              class="form-control"
+              #tagsInput="ngModel"
+              [(ngModel)]="blog.tagsInput"
+              (input)="onTagsInputChange()">
+          </div>
+          
+          <div class="tags-preview" *ngIf="blog.Tags && blog.Tags.length > 0">
+            <span class="tag" *ngFor="let tag of blog.Tags">{{tag}}</span>
+          </div>
+        </section>
+  
+        <section class="form-section">
+          <h2>Featured Image</h2>          
+          <div class="image-upload-container">
+            <div class="dropzone" (click)="$event.stopPropagation()">
+              <span>Drop file here to upload</span>
+              <input type="file" class="file-input"
+                name="blog_image" id="blog_image"
+                (change)="onFileSelected($event)">
+            </div>
+            <div class="image-preview-container">
+              <img *ngIf="blog.Images" [src]="blog.Images" alt="Blog Featured Image" class="image-preview">
+            </div>
+          </div>
+        </section>
+  
+        <section class="form-section">
+          <h2>Blog Content</h2>
+          <div class="editor-container">
+            <textarea 
+              id="Content" 
+              name="Content" 
+              class="editor-content" 
+              rows="12"
+              #content="ngModel"
+              [(ngModel)]="blog.Content"
+            ></textarea>
+          </div>
+        </section>
+      </div>
+  
+      <div class="sidebar">
+        <section class="form-section">
+          <h2>Publication Status</h2>
+          <div class="form-group">
+            <label for="Status">Status</label>
+            <div class="select-wrapper">
+              <select 
+                id="Status" 
+                name="Status" 
+                class="form-control"
+                #status="ngModel"
+                [(ngModel)]="blog.Status">                   
+                <option value="Draft">Draft</option>
+                <option value="Published">Published</option>
+                <option value="Archived">Archived</option>
+              </select>
+            </div>
+          </div>
+        </section>
+  
+        <section class="form-section">
+          <h2>Blog Stats</h2>
+          <div class="form-group stats-display">
+            <div class="stat-item">
+              <label>Views</label>
+              <span>{{blog.Views}}</span>
+            </div>
+            <div class="stat-item">
+              <label>Likes</label>
+              <span>{{blog.Likes}}</span>
+            </div>
+            <div class="stat-item">
+              <label>Comments</label>
+              <span>{{blog.Comments ? blog.Comments.length : 0}}</span>
+            </div>
+          </div>
+        </section>
+  
+        <div class="form-group hidden">
+          <input type="hidden" id="_id" name="_id" value="">
+          <input type="hidden" id="CreatedAt" name="CreatedAt" value="">
+          <input type="hidden" id="UpdatedAt" name="UpdatedAt" value="">
+        </div>
+  
+        <button type="submit" class="btn-create" (click)="postBlog()">Publish Blog Post</button>
+      </div>
+    </div>
+  </div>

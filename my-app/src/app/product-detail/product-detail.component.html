@@ -36,7 +36,7 @@
             <div class="quantity">
                 Quantity: 
                 <input type="number" min="1" max="100" value="1">
-                <button class="add-to-cart">ADD TO CART</button>
+                <button class="add-to-cart" (click)="addToCart(product)">ADD TO CART</button>
             </div>
             
             <div class="product-description">
@@ -52,77 +52,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <div class="feedback-section">
-      <h2 class="section-title">ĐÁNH GIÁ SẢN PHẨM</h2>
-      
-      <div class="rating-summary">
-        <div class="average-rating">
-          <span class="rating-number">4.8</span>
-          <span class="rating-scale">trên 5</span>
-          <div class="star-rating">
-            <span class="filled-stars">★★★★★</span>
-          </div>
-        </div>
-        
-        <div class="rating-filters">
-          <button class="filter-btn primary">Tất Cả</button>
-          <button class="filter-btn">5 Sao (12,4k)</button>
-          <button class="filter-btn">4 Sao (986)</button>
-          <button class="filter-btn">3 Sao (361)</button>
-          <button class="filter-btn">2 Sao (156)</button>
-          <button class="filter-btn">1 Sao (254)</button>
-          <button class="filter-btn">Có Bình Luận (4,9k)</button>
-          <button class="filter-btn">Có Hình Ảnh / Video (2k)</button>
-        </div>
-      </div>
-      
-      <div class="review-list">
-        <div class="review-item">
-          <div class="reviewer-info">
-            <img class="avatar" [src]="review.UserAvatar" alt="User avatar">
-            <div class="reviewer-details">
-              <div class="reviewer-name">{{ review.UserName }}</div>
-              <div class="review-rating">
-                <span class="star-rating">★★★★★</span>
-              </div>
-              <div class="review-date">{{ review.Date }} | Phân loại hàng: {{ review.ProductVariant }}</div>
-            </div>
-          </div>
-          
-          <div class="review-content">
-            <div class="review-attributes">
-              <div class="attribute">
-                <span class="attribute-label">Công dụng:</span>
-                <span class="attribute-value">{{ review.Purpose }}</span>
-              </div>
-              <div class="attribute">
-                <span class="attribute-label">Đối tượng sử dụng:</span>
-                <span class="attribute-value">{{ review.TargetUser }}</span>
-              </div>
-            </div>
-            
-            <div class="review-text">{{ review.Comment }}</div>
-            
-            <div class="review-images">
-              <div class="image-gallery">
-                <div class="review-image" *ngFor="let image of review.Images">
-                  <img [src]="image" alt="Review image">
-                </div>
-              </div>
-            </div>
-            
-            <div class="review-actions">
-              <button class="like-btn">
-                <span class="like-icon">👍</span>
-                <span class="like-count">{{ review.Likes }}</span>
-              </button>
-              <button class="more-options-btn">⋮</button>
-            </div>
-          </div>
-        </div>
-        
-        Additional reviews would be rendered here with *ngFor -->
         <div class="product-container">
           <h1>{{ product?.ProductName }}</h1>
           <p>{{ product?.Description }}</p>

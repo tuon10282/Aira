@@ -82,7 +82,7 @@ h2 {
     width: 1208px;
     height: 885px;
     padding: 140px 0;
-    background: #f1f1f0;
+    background: #EEEBEB;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -146,16 +146,45 @@ h2 {
     padding: 80px 0;
     background: #f1f1f0;
 }
+
+.testimonial-container {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
 .testimonial {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
     font-size: 24px;
+    width: 100%;
+    flex-shrink: 0;
 }
+
+.prev-button, .next-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.prev-button:hover, .next-button:hover {
+    color: #875A5A;
+}
+
 .testimonial-dots {
     margin-top: 20px;
 }
+
 .dot {
     width: 10px;
     height: 10px;
@@ -163,10 +192,13 @@ h2 {
     border-radius: 50%;
     display: inline-block;
     margin: 0 5px;
+    cursor: pointer;
 }
+
 .dot.active {
     background: #8c907e;
 }
+
 .blog {
     max-width: 1435px;
     margin: 0 auto;

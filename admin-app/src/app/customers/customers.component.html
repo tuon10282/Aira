@@ -1,96 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        <div class="search-bar">
-            <input type="text" placeholder="Search">
+<div class="container">
+    <!-- Success and Error Messages -->
+    <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+    <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+    
+    <div class="search-bar">
+        <input type="text" placeholder="Search" [(ngModel)]="searchTerm" (input)="applyFilter()">
+        <button class="search-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="11" cy="11" r="8" stroke="#3D3D3D" stroke-width="1.5"/>
+                <path d="M16.5 16.5L21 21" stroke="#3D3D3D" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+        </button>
+    </div>
+    
+    <h1 class="title">Customers</h1>
+    
+    <div class="customer-panel">
+        <div class="customer-search">
+            <input type="text" placeholder="Search Customers" [(ngModel)]="searchTerm" (input)="applyFilter()">
             <button class="search-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="11" cy="11" r="8" stroke="#3D3D3D" stroke-width="1.5"/>
-                    <path d="M16.5 16.5L21 21" stroke="#3D3D3D" stroke-width="1.5" stroke-linecap="round"/>
+                    <circle cx="11" cy="11" r="8" stroke="white" stroke-width="1.5"/>
+                    <path d="M16.5 16.5L21 21" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>
             </button>
         </div>
         
-        <h1 class="title">Customers</h1>
+        <!-- Loading indicator -->
+        <div *ngIf="loading" class="loading-indicator">Loading customers data...</div>
         
-        <div class="customer-panel">
-            <div class="customer-search">
-                <input type="text" placeholder="Search Customers">
-                <button class="search-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="11" cy="11" r="8" stroke="white" stroke-width="1.5"/>
-                        <path d="M16.5 16.5L21 21" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                    </svg>
+        <!-- No customers message -->
+        <div *ngIf="!loading && filteredUsers.length === 0" class="no-data">
+            No customers found.
+        </div>
+        
+        <!-- Customer table - only show if we have data -->
+        <table class="customer-table" *ngIf="!loading && filteredUsers.length > 0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of filteredUsers">
+                    <td>{{ user._id }}</td>
+                    <td>{{ user.Name }}</td>
+                    <td>{{ user.Email }}</td>
+                    <td>{{ user.Phone }}</td>
+                    <td>{{ user.Address }}</td>
+                    <td class="actions">
+                        <div class="actions-dropdown">
+                          <div class="action-option" (click)="deleteUser(user._id)">Delete</div>
+                          <div class="action-option">
+                            <a (click)="viewDetail(user._id)">View Details</a>                            
+                        </div>
+                        </div>
+                    </td>                    
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- Pagination - only show if we have data -->
+        <div class="pagination" *ngIf="!loading && filteredUsers.length > 0">
+            <div class="entries-info">Showing {{ startIndex + 1 }} to {{ endIndex }} of {{ totalUsers }} entries</div>
+            <div class="pagination-controls">
+                <button class="btn-prev" [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)">Previous</button>
+                <button 
+                    *ngFor="let page of getPageNumbers()" 
+                    class="btn-page" 
+                    [class.active]="page === currentPage"
+                    (click)="changePage(page)">
+                    {{ page }}
                 </button>
-            </div>
-            
-            <table class="customer-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Purchase Date</th>
-                        <th>Phone</th>
-                        <th>Spent</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Nguyen Van A</td>
-                        <td>nguyenvana&#64;gmail.com</td>
-                        <td>Jan 12 , 12:23 pm</td>
-                        <td>123-456-7891</td>
-                        <td>95,000 VND</td>
-                    </tr>
-                    <tr>
-                        <td>Vu Thi B</td>
-                        <td>vuthib&#64;gmail.com</td>
-                        <td>May 01 , 01:13 pm</td>
-                        <td>101-112-1314</td>
-                        <td>85,000 VND</td>
-                    </tr>
-                    <tr>
-                        <td>Vo Van C</td>
-                        <td>vovanc&#64;gmail.com</td>
-                        <td>Sep 20 , 09:08 am</td>
-                        <td>151-617-1819</td>
-                        <td>87, 000 VND</td>
-                    </tr>
-                    <tr>
-                        <td>Le Thi D</td>
-                        <td>lethid&#64;gmail.com</td>
-                        <td>Sep 20 , 09:08 am</td>
-                        <td>202-122-2324</td>
-                        <td>75,000 VND</td>
-                    </tr>
-                    <tr>
-                        <td>Trinh Van E</td>
-                        <td>trinhvane&#64;gmail.com</td>
-                        <td>Sep 20 , 09:08 am</td>
-                        <td>252-627-2829</td>
-                        <td>95,000 VND</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="pagination">
-                <div class="entries-info">Showing 1 to 5 of 100 entries</div>
-                <div class="pagination-controls">
-                    <button class="btn-prev">Previous</button>
-                    <button class="btn-page active">1</button>
-                    <button class="btn-page">2</button>
-                    <button class="btn-page">3</button>
-                    <button class="btn-next">Next</button>
-                </div>
+                <button class="btn-next" [disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)">Next</button>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>

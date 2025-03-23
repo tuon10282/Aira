@@ -5,9 +5,15 @@ const port = 3002;
 const morgan = require("morgan");
 app.use(morgan("combined"));
 
+// Replace these two lines:
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: true}));
+
+// With these lines to increase payload limit:
 const bodyParser = require("body-parser");
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 const bcrypt = require('bcrypt');
 const saltRounds = 10; // Độ phức tạp của mã hóa, 10 là giá trị phổ biến
 const cors = require("cors");
@@ -20,7 +26,6 @@ app.listen(port, () => {
 app.get("/", (req, res) => {
   res.send("This Web server is processed for MongoDB");
 });
-
 const { MongoClient, ObjectId } = require('mongodb');
 client = new MongoClient("mongodb://127.0.0.1:27017");
 client.connect();
@@ -32,6 +37,7 @@ reviewsCollection = database.collection("Reviews");
 cartCollection = database.collection("Cart");
 checkoutCollection = database.collection("Checkout");
 feedbackCollection = database.collection("Feedback")
+blogCollection = database.collection("Blog")
 
 
 // Get all users
@@ -40,7 +46,6 @@ app.get("/users", cors(), async (req, res) => {
   res.send(result);
 });
 
-// Create new user
 // Create new user
 app.post("/users", cors(), async (req, res) => {
   try {
@@ -140,7 +145,58 @@ app.post("/login", cors(), async (req, res) => {
     res.status(500).send({ error: "Internal server error" });
   }
 });
+//put
+// Update user information
+app.put("/updateusers/:id", cors(), verifyToken, async (req, res) => {
+  try {
+    const userId = req.params.id;
+    
+    // Verify the user is updating their own profile
+    if (req.user.userId !== userId) {
+      return res.status(403).send({ error: "You can only update your own profile" });
+    }
+    
+    // Get update data from request body
+    const updateData = { ...req.body };
+    
+    // Don't allow _id to be updated
+    delete updateData._id;
+    
+    // If password is being updated, hash it
+    if (updateData.Password) {
+      updateData.Password = await bcrypt.hash(updateData.Password, saltRounds);
+    }
+    
+    // Use ObjectId for MongoDB
+    const objectId = new ObjectId(userId);
+    
+    // Update the user document
+    const result = await usersCollection.updateOne(
+      { _id: objectId },
+      { $set: updateData }
+    );
+    
+    if (result.matchedCount === 0) {
+      return res.status(404).send({ error: "User not found" });
+    }
+    
+    // Get updated user (without password)
+    const updatedUser = await usersCollection.findOne({ _id: objectId });
+    const { Password, ...userWithoutPassword } = updatedUser;
+    
+    res.status(200).send({
+      message: "User updated successfully",
+      user: userWithoutPassword
+    });
+  } catch (error) {
+    console.error("Update user error:", error);
+    res.status(500).send({ error: "Internal server error" });
+  }
+});
 
+
+
+// PRODUCT
 // Get all products
 app.get("/products", cors(), async (req, res) => {
   const result = await productsCollection.find({}).toArray();
@@ -154,6 +210,100 @@ app.get("/products/:id", cors(), async (req, res) => {
   res.send(result[0]);
 });
 
+app.post("/products", cors(), async (req, res) => {
+  try {
+    // Create a copy of the request body
+    const product = {...req.body};
+    
+    // Remove empty _id field if it exists
+    if (product._id === "") {
+      delete product._id;
+    }
+    
+    // Insert the product into the collection
+    const result = await productsCollection.insertOne(product);
+    
+    // Return the inserted product with the new _id
+    res.send({...product, _id: result.insertedId});
+  } catch (error) {
+    console.error("Error adding product:", error);
+    res.status(500).send({ error: error.message });
+  }
+});
+//131
+app.put("/products", cors(), async (req, res) => { 
+  try { 
+    const product = req.body; 
+    
+    if (!product._id) { 
+      return res.status(400).send({ error: "Product ID is required" }); 
+    } 
+    
+    let o_id;
+    try {
+      o_id = new ObjectId(product._id);
+    } catch (err) {
+      return res.status(400).send({ error: "Invalid product ID format" });
+    }
+    
+    console.log("Updating product:", product._id);
+    
+    // Create the update document with the same field names as the frontend
+    const updateData = { 
+      ProductName: product.ProductName, 
+      Price: parseFloat(product.Price) || 0, 
+      oldPrice: parseFloat(product.oldPrice) || 0, 
+      Description: product.Description || "", 
+      CategoryName: product.CategoryName || "", 
+      Color: product.Color || "", 
+      Weight: parseInt(product.Weight) || 0, 
+      BurningTime: parseInt(product.BurningTime) || 0, 
+      Fragrance: product.Fragrance || "", 
+      StockQuantity: parseInt(product.StockQuantity) || 0, 
+      SKU: product.SKU || "", 
+      Images: Array.isArray(product.Images) ? product.Images : [] 
+    };
+    
+    // Perform the update
+    const result = await productsCollection.updateOne( 
+      { _id: o_id }, 
+      { $set: updateData }
+    ); 
+    
+    if (result.matchedCount === 0) { 
+      return res.status(404).send({ error: "Product not found" }); 
+    } 
+    
+    // Verify the update by fetching the product
+    const updatedProduct = await productsCollection.findOne({ _id: o_id });
+    console.log("Update verified:", updatedProduct ? "Success" : "Failed");
+    
+    // Return the updated product as is without remapping
+    res.status(200).send({ 
+      ...updatedProduct,
+      message: "Product updated successfully" 
+    }); 
+  } catch (error) { 
+    console.error("Error updating product:", error); 
+    res.status(500).send({ error: error.message }); 
+  } 
+});
+
+
+app.delete("/products/:id", cors(), async(req, res) => { 
+  // Find detail Product with id
+  var o_id = new ObjectId(req.params["id"]);
+  const result = await productsCollection.find({_id:o_id}).toArray(); 
+  
+  // Delete the product from database
+  await productsCollection.deleteOne({_id:o_id});
+  
+  // Send Product data that was removed
+  res.send(result[0]);
+});
+
+
+// REVIEWS
 // Get all reviews
 app.get("/reviews", cors(), async (req, res) => {
   const result = await reviewsCollection.find({}).toArray();
@@ -762,6 +912,86 @@ app.get("/orders/:orderId", verifyToken, async (req, res) => {
     });
   }
 });
+// ADMIN Orders
+
+// Get all orders
+app.get("/adminorders", cors(), async (req, res) => {
+  try {
+    const result = await ordersCollection.find({}).toArray();
+    res.send(result);
+  } catch (error) {
+    console.error("Error getting orders:", error);
+    res.status(500).send({ error: error.message });
+  }
+});
+
+// Get order by ID
+app.get("/adminorders/:id", cors(), async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    let o_id;
+    try {
+      o_id = new ObjectId(id);
+    } catch (err) {
+      return res.status(400).send({ error: "Invalid order ID format" });
+    }
+    
+    const result = await ordersCollection.findOne({ _id: o_id });
+    
+    if (!result) {
+      return res.status(404).send({ error: "Order not found" });
+    }
+    
+    res.send(result);
+  } catch (error) {
+    console.error("Error getting order:", error);
+    res.status(500).send({ error: error.message });
+  }
+});
+
+// Update order status
+app.put("/adminorders/:id", cors(), async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    if (!status) {
+      return res.status(400).send({ error: "Status is required" });
+    }
+
+    let o_id;
+    try {
+      o_id = new ObjectId(id);
+    } catch (err) {
+      return res.status(400).send({ error: "Invalid order ID format" });
+    }
+
+    console.log("Updating order status:", id, "to", status);
+
+    // Only update the status field
+    const result = await ordersCollection.updateOne(
+      { _id: o_id },
+      { $set: { status: status } }
+    );
+
+    if (result.matchedCount === 0) {
+      return res.status(404).send({ error: "Order not found" });
+    }
+
+    // Verify the update by fetching the order
+    const updatedOrder = await ordersCollection.findOne({ _id: o_id });
+    console.log("Update verified:", updatedOrder ? "Success" : "Failed");
+
+    res.status(200).send({
+      ...updatedOrder,
+      message: "Order status updated successfully"
+    });
+  } catch (error) {
+    console.error("Error updating order status:", error);
+    res.status(500).send({ error: error.message });
+  }
+});
 
 // API feedbacks 
 app.get("/feedbacks", async (req, res) => {
@@ -778,3 +1008,425 @@ app.post("/feedbacks", async (req, res) => {
   res.send(feedback);
 });
 
+// Get all blogs
+app.get("/blogs", cors(), async (req, res) => {
+  try {
+    const result = await blogCollection
+      .find({})
+      .sort({ CreatedAt: -1 }) // Sort by CreatedAt descending
+      .toArray();
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching blogs", error });
+  }
+});
+
+// Filter blog by category
+app.get("/blogs/Category/:Category", cors(), async (req, res) => {
+  try {
+    const result = await blogCollection.find({ Category: req.params.Category }).toArray();
+    res.send(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get blog by ID
+app.get("/blogs/:id", cors(), async (req, res) => {
+  var o_id = new ObjectId(req.params["id"]);
+  const result = await blogCollection.find({ _id: o_id }).toArray();
+  res.send(result[0]);
+});
+
+// Add a new blog
+app.post("/blogs", cors(), async (req, res) => {
+  try {
+    // Create a copy of the request body
+    const blog = {...req.body};
+    
+    // Remove empty _id field if it exists
+    if (blog._id === "") {
+      delete blog._id;
+    }
+    
+    // Insert the product into the collection
+    const result = await blogCollection.insertOne(blog);
+    
+    // Return the inserted product with the new _id
+    res.send({...blog, _id: result.insertedId});
+  } catch (error) {
+    console.error("Error adding Blog:", error);
+    res.status(500).send({ error: error.message });
+  }
+});
+
+// Edit a blog
+app.put("/blogs", cors(), async (req, res) => { 
+  try { 
+    const blog = req.body; 
+    
+    if (!blog._id) { 
+      return res.status(400).send({ error: "Blog ID is required" }); 
+    } 
+    
+    let o_id;
+    try {
+      o_id = new ObjectId(blog._id);
+    } catch (err) {
+      return res.status(400).send({ error: "Invalid Blog ID format" });
+    }
+    
+    console.log("Updating Blog:", blog._id);
+    const updateTime = new Date().toISOString();
+
+    // Create the update document with the same field names as the frontend
+    const updateData = { 
+      Title: blog.Title, 
+      Content: blog.Content, // Fixed: was incorrectly mapped to Price
+      Author: blog.Author,
+      Category: blog.Category || "", 
+      Tags: blog.Tags || [], 
+      Images: blog.Images || "", 
+      Status: blog.Status || "",
+      UpdatedAt: updateTime
+    };
+    
+    // Perform the update
+    const result = await blogCollection.updateOne( 
+      { _id: o_id }, 
+      { $set: updateData }
+    ); 
+    
+    if (result.matchedCount === 0) { 
+      return res.status(404).send({ error: "Blog not found" }); 
+    } 
+    
+    // Verify the update by fetching the blog
+    const updatedBlog = await blogCollection.findOne({ _id: o_id });
+    console.log("Update verified:", updatedBlog ? "Success" : "Failed");
+    
+    // Return the updated blog
+    res.status(200).send({ 
+      ...updatedBlog,
+      message: "Blog updated successfully" 
+    }); 
+  } catch (error) { 
+    console.error("Error updating Blog:", error); 
+    res.status(500).send({ error: error.message }); 
+  } 
+});
+
+// Remove a blog
+app.delete("/blogs/:id", cors(), async (req, res) => {
+  try {
+    // Find blog with id
+    var o_id = new ObjectId(req.params["id"]);
+    const result = await blogCollection.find({ _id: o_id }).toArray();
+    
+    // Delete blog from database
+    await blogCollection.deleteOne({ _id: o_id });
+    
+    // Send deleted blog as response
+    res.send(result[0]);
+  } catch (error) {
+    res.status(500).send({ error: "Error deleting blog", details: error });
+  }
+});
+
+// Edit a user
+app.put("/users", cors(), async (req, res) => {
+  try {
+    const user = req.body;
+    
+    if (!user._id) {
+      return res.status(400).send({ error: "User ID is required" });
+    }
+    
+    let o_id;
+    try {
+      o_id = new ObjectId(user._id);
+    } catch (err) {
+      return res.status(400).send({ error: "Invalid User ID format" });
+    }
+    
+    console.log("Updating User:", user._id);
+    const updateTime = new Date().toISOString();
+    
+    // Create the update document with user fields
+    const updateData = {
+      Username: user.Username,
+      Email: user.Email,
+      Password: user.Password, // Note: In production, handle password updates securely
+      FullName: user.FullName || "",
+      Phone: user.Phone || "",
+      Address: user.Address || "",
+      UpdatedAt: updateTime
+    };
+    
+    // Perform the update
+    const result = await usersCollection.updateOne(
+      { _id: o_id },
+      { $set: updateData }
+    );
+    
+    if (result.matchedCount === 0) {
+      return res.status(404).send({ error: "User not found" });
+    }
+    
+    // Verify the update by fetching the user
+    const updatedUser = await usersCollection.findOne({ _id: o_id });
+    console.log("Update verified:", updatedUser ? "Success" : "Failed");
+    
+    // Return the updated user
+    res.status(200).send({
+      ...updatedUser,
+      message: "User updated successfully"
+    });
+  } catch (error) {
+    console.error("Error updating User:", error);
+    res.status(500).send({ error: error.message });
+  }
+});
+
+// Remove a user
+app.delete("/users/:id", cors(), async (req, res) => {
+  try {
+    // Find user with id
+    var o_id = new ObjectId(req.params["id"]);
+    const result = await usersCollection.find({ _id: o_id }).toArray();
+    
+    // Delete user from database
+    await usersCollection.deleteOne({ _id: o_id });
+    
+    // Send deleted user as response
+    res.send(result[0]);
+  } catch (error) {
+    res.status(500).send({ error: "Error deleting user", details: error });
+  }
+});
+app.get("/user-admin/:id", cors(), async (req, res) => {
+  var o_id = new ObjectId(req.params["id"]);
+  const result = await usersCollection.find({ _id: o_id }).toArray();
+  res.send(result[0]);
+});
+
+// Dashboard API routes - fixed version
+app.get("/dashboard/stats", async (req, res) => {
+  try {
+    // Get current date
+    const now = new Date();
+
+    // Calculate date 30 days ago (for monthly revenue)
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    // Calculate monthly revenue
+    const monthlyOrders = await ordersCollection.find({
+      orderDate: { $gte: thirtyDaysAgo, $lte: now }
+    }).toArray();
+
+    const monthlyRevenue = monthlyOrders.reduce((total, order) => {
+      return total + (order.orderSummary && order.orderSummary.total ?
+        Number(order.orderSummary.total) : 0);
+    }, 0);
+
+    // Calculate new sales (count of new orders in last 30 days)
+    const newSales = monthlyOrders.length;
+
+    // Get ALL orders to count total unique customers
+    const allOrders = await ordersCollection.find({}).toArray();
+
+    // Count unique customers from all orders
+    const uniqueCustomers = new Set();
+    allOrders.forEach(order => {
+      if (order.userId) {
+        uniqueCustomers.add(order.userId);
+      }
+    });
+
+    const totalUniqueCustomers = uniqueCustomers.size;
+
+    res.json({
+      monthlyRevenue,
+      newSales,
+      totalUniqueCustomers
+    });
+
+  } catch (error) {
+    console.error("Error fetching dashboard stats:", error);
+    res.status(500).json({ error: "Error fetching dashboard stats", message: error.message });
+  }
+});
+
+// Revenue data for line chart - fixed version
+app.get("/dashboard/revenue", async (req, res) => {
+  try {
+    // Get current date
+    const now = new Date();
+
+    // Get last 7 months
+    const months = [];
+    const incomeData = [];
+    const revenueData = [];
+
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date();
+      date.setMonth(now.getMonth() - i);
+
+      const monthStart = new Date(date.getFullYear(), date.getMonth(), 1);
+      const monthEnd = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+      // Get month name (Jan, Feb, etc.)
+      const monthName = date.toLocaleString('default', { month: 'short' });
+      months.push(monthName);
+
+      // Get orders for this month
+      const monthOrders = await ordersCollection.find({
+        orderDate: { $gte: monthStart, $lte: monthEnd }
+      }).toArray();
+
+      // Calculate total revenue for the month - safely handle missing properties
+      const monthRevenue = monthOrders.reduce((total, order) => {
+        return total + (order.orderSummary && order.orderSummary.total ?
+          Number(order.orderSummary.total) : 0);
+      }, 0);
+
+      // Calculate total income (revenue - shipping fees) - safely handle missing properties
+      const monthIncome = monthOrders.reduce((total, order) => {
+        return total + (order.orderSummary && order.orderSummary.subtotal ?
+          Number(order.orderSummary.subtotal) : 0);
+      }, 0);
+
+      // Convert to millions for better scaling on chart
+// Use small values if data is missing to avoid breaking the chart
+      incomeData.push(monthIncome ? monthIncome / 1000 : 0);
+      revenueData.push(monthRevenue ? monthRevenue / 1000 : 0);
+
+
+    }
+
+    res.json({
+      labels: months,
+      income: incomeData,
+      revenue: revenueData
+    });
+
+  } catch (error) {
+    console.error("Error fetching revenue data:", error);
+    res.status(500).json({ error: "Error fetching revenue data", message: error.message });
+  }
+});
+
+// Product sales data for pie chart - fixed version
+// app.get("/dashboard/product-sales", async (req, res) => {
+//   try {
+//     // Get all orders
+//     const allOrders = await ordersCollection.find({}).toArray();
+    
+//     // Initialize variables
+//     const productSales = {};
+//     let totalQuantity = 0;
+    
+//     // Loop through orders
+//     allOrders.forEach(async order => {
+//       // Check if order has checkoutId (to access the products from checkout)
+//       if (order.checkoutId) {
+//         // Find the corresponding checkout
+//         const checkout = await checkoutCollection.findOne({ 
+//           _id: new ObjectId(order.checkoutId) 
+//         });
+        
+//         if (checkout && checkout.products && Array.isArray(checkout.products)) {
+//           // Process each product in the checkout
+//           checkout.products.forEach(product => {
+//             if (product.name) {
+//               if (!productSales[product.name]) {
+//                 productSales[product.name] = 0;
+//               }
+              
+//               const quantity = parseInt(product.quantity) || 1;
+//               productSales[product.name] += quantity;
+//               totalQuantity += quantity;
+//             }
+//           });
+//         }
+//       }
+//     });
+    
+//     // Convert to sorted array
+//     const sortedProducts = Object.entries(productSales)
+//       .map(([name, quantity]) => ({ name, quantity }))
+//       .sort((a, b) => b.quantity - a.quantity);
+    
+//     // Create chart data
+//     const colors = ['rgb(0, 51, 204)', 'rgb(0, 102, 255)', 'rgb(51, 153, 255)', 'rgb(255, 204, 0)', 'rgb(128, 128, 128)'];
+    
+//     // Get top 4 products
+//     const topProducts = sortedProducts.slice(0, Math.min(4, sortedProducts.length));
+    
+//     // Add "Others" category if needed
+//     if (sortedProducts.length > 4) {
+//       const othersQuantity = sortedProducts.slice(4).reduce((sum, product) => sum + product.quantity, 0);
+//       if (othersQuantity > 0) {
+//         topProducts.push({ name: 'Others', quantity: othersQuantity });
+//       }
+//     }
+    
+//     const labels = [];
+//     const data = [];
+//     const legend = [];
+    
+//     topProducts.forEach((product, index) => {
+//       const percentage = Math.round((product.quantity / totalQuantity) * 100);
+//       labels.push(product.name);
+//       data.push(percentage);
+//       legend.push({
+//         name: product.name,
+//         value: product.quantity,
+//         percentage: percentage,
+//         color: colors[index % colors.length]
+//       });
+//     });
+    
+//     res.json({
+//       totalSoldQuantity: totalQuantity,
+//       productQuantities: sortedProducts,
+//       labels,
+//       data,
+//       legend
+//     });
+    
+//   } catch (error) {
+//     console.error("Error fetching product sales data:", error);
+//   }
+// });
+app.get("/dashboard/recent-orders", async (req, res) => {
+  try {
+    // Get 5 most recent orders
+    const recentOrders = await ordersCollection.find({})
+      .sort({ orderDate: -1 })
+
+      .toArray();
+
+    // Transform data for frontend
+    const formattedOrders = recentOrders.map(order => {
+      // Access product name directly from the products array
+
+
+      return {
+        orderId: order._id ? order._id.toString().substring(0, 6).toUpperCase() : 'UNKNOWN',
+
+        orderDate: order.orderDate || new Date(),
+        price: order.orderSummary && order.orderSummary.total ?
+          Number(order.orderSummary.total) : 0,
+        status: order.status || 'pending'
+      };
+    });
+
+    res.json(formattedOrders);
+
+  } catch (error) {
+    console.error("Error fetching recent orders:", error);
+    res.status(500).json({ error: "Error fetching recent orders", message: error.message });
+  }
+});

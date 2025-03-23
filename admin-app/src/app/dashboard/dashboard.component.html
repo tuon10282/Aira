@@ -12,18 +12,21 @@
       <p>Please, organize your product through button bellow!</p>
       <button class="menu-btn">+ Add Menu</button>
     </div> 
-    <div class="stats-grid">
+    <div class="stats-summary">
       <div class="stat-card">
-        <div class="stat-value">20,000,000 VND</div>
-        <div class="stat-label">Monthly revenue</div>
+        <div class="stat-value">{{ formatCurrency(monthlyRevenue) }}</div>
+        <div class="stat-label">Monthly Revenue</div>
       </div>
+      
       <div class="stat-card">
-        <div class="stat-value">42,339</div>
-        <div class="stat-label">38+ New Sales</div>
+        <div class="stat-value">{{ newSales }}</div>
+        <div class="stat-label">New Sales</div>
+        <div class="stat-change">(+63%) than last year</div>
       </div>
+      
       <div class="stat-card">
-        <div class="stat-value">39,354</div>
-        <div class="stat-label">30+ new in 3 days</div>
+        <div class="stat-value">{{ totalUniqueCustomers }}</div>
+        <div class="stat-label">New Customers</div>
       </div>
     </div>
     <div class="charts-row">
@@ -33,42 +36,14 @@
         <div class="tab-group">
           <div class="tab active">Total Income</div>
           <div class="tab">Total Revenue</div>
-          <div class="year-selector">2023 ▼</div>
+          <div class="year-selector">2025 ▼</div>
         </div>
         <div class="line-chart">
           <canvas id="lineChart"></canvas>
         </div>
       </div>
-      
-      <div class="pie-chart-container">
-        <div class="section-title">Total Sales</div>
-        <div class="pie-chart">
-          <canvas id="pieChart"></canvas>
-        </div>
-        <div class="chart-legend">
-          <div class="legend-item">
-            <div class="legend-color" style="background-color: rgb(0, 51, 204)"></div>
-            <span>Scented Candle Type 1</span>
-            <span style="margin-left: auto">35,843 (38%)</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-color" style="background-color: rgb(0, 102, 255)"></div>
-            <span>Scented Candle Type 2</span>
-            <span style="margin-left: auto">24,810 (26%)</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-color" style="background-color: rgb(51, 153, 255)"></div>
-            <span>Scented Candle Type 3</span>
-            <span style="margin-left: auto">9,782 (10%)</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-color" style="background-color: rgb(255, 204, 0)"></div>
-            <span>Scented Candle Type 4</span>
-            <span style="margin-left: auto">4,603 (5%)</span>
-          </div>
-        </div>
-      </div>
     </div>   
+
     <div class="info-row">
       <div class="sales-overview">
         <div class="section-title">Sales Overview</div>
@@ -131,48 +106,31 @@
     </div>
     
     <div class="orders-table">
-      <div class="section-title">Recent Order</div>
-      <table>
-        <thead>
-          <tr>
-            <th>Order Number</th>
-            <th>Product Name</th>
-            <th>Order Date</th>
-            <th>Price</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>#SG0001</td>
-            <td>Matcha Latte Scented Candle</td>
-            <td>Jan 12, 12:23 pm</td>
-            <td>90,000 VND</td>
-            <td class="shipped">Shipped</td>
-          </tr>
-          <tr>
-            <td>#SG0003</td>
-            <td>Flamingo Scented Candle</td>
-            <td>May 21, 01:15 pm</td>
-            <td>85,000 VND</td>
-            <td class="pending">Pending</td>
-          </tr>
-          <tr>
-            <td>#SG0002</td>
-            <td>Blue Shirt Scented Candle</td>
-            <td>Sep 20, 09:08 am</td>
-            <td>87,000 VND</td>
-            <td class="cancel">Cancel</td>
-          </tr>
-          <tr>
-            <td>#SG0022</td>
-            <td>Lavender Heart Scented Candle</td>
-            <td>Sep 20, 09:08 am</td>
-            <td>75,000 VND</td>
-            <td class="processing">Processing</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+ <!-- Recent Orders -->
+ <div class="recent-orders">
+  <h2>Recent Orders</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Order Number</th>
+        <th>Order Date</th>
+        <th>Price</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of recentOrders">
+        <td>{{ order.orderId }}</td>
+        <td>{{ order.orderDate | date:'MMM d, h:mm a' }}</td>
+        <td>{{ formatCurrency(order.price) }}</td>
+        <td>
+          <span class="order-status" [ngClass]="order.status">{{ order.status }}</span>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+</div>
+
 </body>
 </html>

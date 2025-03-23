@@ -41,85 +41,32 @@
             <table class="order-table">
                 <thead>
                     <tr>
-                        <th class="checkbox-column">
-                            <input type="checkbox" id="select-all" class="checkbox">
-                            <label for="select-all" class="checkbox-label"></label>
-                        </th>
-                        <th>Image</th>
-                        <th>Order Name</th>
+                        <th>Order ID</th>
                         <th>Customer</th>
                         <th>Date & Time</th>
                         <th>Payment</th>
-                        <th>Status</th>
                         <th>Amount</th>
+                        <th>Status</th>
+
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="checkbox-column">
-                            <input type="checkbox" id="row1" class="checkbox">
-                            <label for="row1" class="checkbox-label"></label>
+                    <tr *ngFor="let f of orders" [attr.data-id]="f.id">
+                        <td>{{ f._id }}</td>
+                        <td>{{ f.shippingInfo['fullName'] }}</td>                        
+                        <td>{{f.orderDate}}</td>
+                        <td>{{f.paymentMethod}}</td>
+                        <td>{{ f.orderSummary['total'] }}</td>                        
+                        <td>{{f.status}}</td>
+                        <td class="actions-menu">
+                          <div class="actions-dropdown">
+                            <!-- <div class="action-option" (click)="deleteProduct(f._id)">Delete</div> -->
+                            <div class="action-option">
+                              <a (click)="viewDetail(f)">Edit</a>
+                            </div>                
+                          </div>
                         </td>
-                        <td><img src="https://placehold.co/35x35" alt="Product" class="product-image"></td>
-                        <td>#SC0001</td>
-                        <td>Nguyen Van A</td>
-                        <td>Jan 12 , 12:23 pm</td>
-                        <td>Bank Transfer</td>
-                        <td><span class="status success">Success</span></td>
-                        <td>95,000 VND</td>
-                    </tr>
-                    <tr>
-                        <td class="checkbox-column">
-                            <input type="checkbox" id="row2" class="checkbox">
-                            <label for="row2" class="checkbox-label"></label>
-                        </td>
-                        <td><img src="https://placehold.co/35x35" alt="Product" class="product-image"></td>
-                        <td>#SC0003</td>
-                        <td>Vu Thi B</td>
-                        <td>May 01 , 01:13 pm</td>
-                        <td>COD</td>
-                        <td><span class="status pending">Pending</span></td>
-                        <td>85,000 VND</td>
-                    </tr>
-                    <tr>
-                        <td class="checkbox-column">
-                            <input type="checkbox" id="row3" class="checkbox">
-                            <label for="row3" class="checkbox-label"></label>
-                        </td>
-                        <td><img src="https://placehold.co/35x35" alt="Product" class="product-image"></td>
-                        <td>#SC0002</td>
-                        <td>Vo Van C</td>
-                        <td>Sep 20 , 09:08 am</td>
-                        <td>Momo</td>
-                        <td><span class="status success">Success</span></td>
-                        <td>87, 000 VND</td>
-                    </tr>
-                    <tr>
-                        <td class="checkbox-column">
-                            <input type="checkbox" id="row4" class="checkbox">
-                            <label for="row4" class="checkbox-label"></label>
-                        </td>
-                        <td><img src="https://placehold.co/35x35" alt="Product" class="product-image"></td>
-                        <td>#SC0002</td>
-                        <td>Le Thi D</td>
-                        <td>Sep 20 , 09:08 am</td>
-                        <td>COD</td>
-                        <td><span class="status cancel">Cancel</span></td>
-                        <td>75,000 VND</td>
-                    </tr>
-                    <tr>
-                        <td class="checkbox-column">
-                            <input type="checkbox" id="row5" class="checkbox">
-                            <label for="row5" class="checkbox-label"></label>
-                        </td>
-                        <td><img src="https://placehold.co/35x35" alt="Product" class="product-image"></td>
-                        <td>#SC0002</td>
-                        <td>Trinh Van E</td>
-                        <td>Sep 20 , 09:08 am</td>
-                        <td>Bank Transfer</td>
-                        <td><span class="status pending">Pending</span></td>
-                        <td>95,000 VND</td>
-                    </tr>
+                      </tr>
                 </tbody>
             </table>
 

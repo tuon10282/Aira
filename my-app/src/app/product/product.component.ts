@@ -43,7 +43,7 @@ export class ProductComponent implements OnInit {
     }
 
   // Tính giá cuối cùng sau khi giảm giá
-  const originalPrice = product.oldPrice > 0 ? product.oldPrice : product.Price; // Chỉ lấy oldPrice nếu lớn hơn 0
+  const originalPrice = product.oldPrice > 0 ? product.oldPrice : product.oldPrice; // Chỉ lấy oldPrice nếu lớn hơn 0
   const finalPrice = product.Price; // Giá cuối cùng đã giảm
   
   const discountValue = originalPrice > finalPrice && originalPrice > 0 

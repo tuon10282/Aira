@@ -14,9 +14,10 @@ import { ErrorComponent } from './error/error.component';
 import { AuthGuard } from './auth.guard';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ProfileComponent } from './profile/profile.component';
-import { BlogComponent } from './blog/blog.component';
+import { BlogListComponent } from './blog-list/blog-list.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent,canActivate: [AuthGuard] }, // Trang chủ
@@ -32,8 +33,8 @@ const routes: Routes = [
   { path: 'feedback', component: FeedbackComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'tim-kiem',component: SearchResultsComponent },
-
-  { path: 'blog', component: BlogComponent },
+  { path: 'blog', component: BlogListComponent },
+  { path: 'blog-detail/:id', component: BlogDetailComponent },
   { path: 'error', component: ErrorComponent }, // ✅ Route cho trang lỗi
   { path: '**', redirectTo: 'error' }, // ✅ Chuyển hướng đến trang lỗi nếu route không hợp lệ
   

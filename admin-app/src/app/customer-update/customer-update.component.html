@@ -1,0 +1,90 @@
+<div class="customer-form-container">
+    <div class="header">
+      <h1>Update Customer</h1>
+      <div class="breadcrumb">
+        <a href="#">Dashboard</a> / 
+        <a href="#">Customers</a> / 
+        <span>Update Customer</span>
+      </div>
+      <button class="btn-back"><a routerLink="/user">Back to Customers</a></button>
+    </div>
+  
+    <div class="form-layout">
+      <div class="main-content">
+        <section class="form-section">
+          <h2>Customer Information</h2>
+          <div class="form-group">
+            <label for="Name">Full Name</label>
+            <input type="text" id="Name" name="Name" placeholder="Customer Full Name" class="form-control" [(ngModel)]="user.Name">
+          </div>
+  
+          <div class="form-group">
+            <label for="Email">Email Address</label>
+            <input type="email" id="Email" name="Email" placeholder="Email Address" class="form-control" [(ngModel)]="user.Email">
+          </div>
+  
+          <div class="form-group">
+            <label for="Phone">Phone Number</label>
+            <input type="tel" id="Phone" name="Phone" placeholder="Phone Number" class="form-control" [(ngModel)]="user.Phone">
+          </div>
+  
+          <div class="form-group">
+            <label for="Address">Address</label>
+            <textarea id="Address" name="Address" placeholder="Customer Address" class="form-control" rows="3" [(ngModel)]="user.Address"></textarea>
+          </div>
+        </section>
+  
+        <section class="form-section">
+          <h2>Security Information</h2>
+          <div class="form-group">
+            <label for="Password">Password</label>
+            <div class="password-input-container">
+              <input [type]="showPassword ? 'text' : 'password'" id="Password" name="Password" placeholder="Leave blank to keep current password" class="form-control" [(ngModel)]="user.Password">
+              <button class="password-toggle-btn" type="button" (click)="togglePasswordVisibility()">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+            <small class="form-text">Leave blank to keep the current password</small>
+          </div>
+        </section>
+      </div>
+  
+      <div class="sidebar">
+        <section class="form-section">
+          <h2>Account Status</h2>
+          <div class="info-item" *ngIf="user._id">
+            <span class="info-label">User ID</span>
+            <span class="info-value">{{user._id}}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Account Status</span>
+            <span class="info-value status-active">Active</span>
+          </div>
+        </section>
+  
+        <section class="form-section" *ngIf="user._id">
+          <h2>Account Activity</h2>
+          <div class="activity-stats">
+            <div class="stat-item">
+              <span class="stat-label">Orders</span>
+              <span class="stat-value">5</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Reviews</span>
+              <span class="stat-value">2</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Last Login</span>
+              <span class="stat-value">3d ago</span>
+            </div>
+          </div>
+        </section>
+  
+        <div *ngIf="errMessage" class="error-message">
+          {{ errMessage }}
+        </div>
+  
+        <button type="submit" class="btn-update" (click)="updateUser()">Update Customer</button>
+      </div>
+    </div>
+  </div>
